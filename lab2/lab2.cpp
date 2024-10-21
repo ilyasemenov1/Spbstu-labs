@@ -8,11 +8,39 @@
 
 #include <algorithm> 
 
+#ifdef NDEBUG
+    #include "1.h"
+#else
+    #include "2.h"
+#endif
+
+
 using namespace std; 
 
 #define LENGHT(r) (2 * M_PI * (r))
 #define MAX(a, b) ((a) >= (b) ? (a) : (b))
-#define EXCHANGE(x, y) 
+#define EXCHANGE(x, y) {  \
+    (x) ^= (y);           \   
+    (y) ^= (x);           \
+    (x) ^= (y);           \
+}
+
+void showBits(short y) {
+    short mask = 1;
+
+    int bits[16];
+
+    for (int i = 0; i < 16; i++) {
+        bits[i] = (y & (mask << i)) > 0;
+    }
+
+    reverse(begin(bits), end(bits));
+
+    for (int i : bits) {
+        cout << i << ' ';
+    }
+    cout << endl;
+}
 
 int main()
 {
@@ -152,23 +180,22 @@ int main()
         short sRes;
 
         /** sRes == 0x7ff7 */
-        // sRes = ...;
+        sRes = -sNum - 1;
     
         /** sRes == 0x8ff8 */
-        // sRes = ...;
-
+        sRes = sNum | 0x0ff0;
 
         /** sRes == 0x0008 */
-        // sRes = ...;
+        sRes = sNum & 0x000f;
 
         /** sRes == 0x7f08 */
-        // sRes = ...;
+        sRes = (0xff00 & (-sNum - 1)) | (0x00ff & sNum);
 
         /** sRes == 0xf001 */
-        // sRes = ...;
+        sRes = sNum >> 3;
 
         /** sRes == 0x0010 */
-        // sRes = ...;
+        sRes = sNum << 1;
     }
 
     
@@ -247,11 +274,11 @@ int main()
      */
 
     {
-        // int x1=1, y1=-1;
-        // EXCHANGE(x1,y1);
+        int x1=1, y1=-1;
+        EXCHANGE(x1,y1);
 
-        // int x2=100, y2=-100;
-        // EXCHANGE(x2,y2);
+        int x2=100, y2=-100;
+        EXCHANGE(x2,y2);
     }
 
     /**
@@ -276,6 +303,8 @@ int main()
             iNN = -1;
         #endif
 
+        // cout << iNN << endl;
+
         // 0? -- определить макросы NNN и MMM
         // 1? -- определить макрос MMM
         // 2? -- определить макрос NNN
@@ -299,9 +328,9 @@ int main()
      * Проверьте их работоспособность.
      */
 
-    // 0? -- gcc -g -D NNN=1 -D MMM=2 lab2.cpp
-    // 1? -- gcc -g -D MMM=2 lab2.cpp
-    // 2? -- gcc -g -D NNN=1 lab2.cpp
+    // 0? -- gcc -g -DNNN=1 -DMMM=2 lab2.cpp
+    // 1? -- gcc -g -DMMM=2 lab2.cpp
+    // 2? -- gcc -g -DNNN=1 lab2.cpp
 
     /**
      * Задание 2.5. Сборки "DEBUG" и "RELEASE". Предопределенные макросы
@@ -324,6 +353,10 @@ int main()
      *
      * `gcc <ваши опции> -o release.out lab2.cpp`
      */
+
+    #ifndef NDEBUG
+        cout << "!DEBUG" << ' ' << __DATE__ << ' ' <<  __FILE__ << ' ' << __func__ << ' ' << __LINE__ << endl;
+    #endif
 
     /**
      * Задание 3.Заголовочные файлы. Директива #include.
@@ -470,12 +503,12 @@ int main()
         pucObject = reinterpret_cast<unsigned char*>(pnObject);
 
         /** Проследите за значениями переменной `cc`. Объясните результаты. */
-        cc = pucObject[0]; // -120
+        cc = pucObject[0]; // -120 <-- znachenie ukazatelia v tochke (bayte) (pucObject + 0) | *(pucObject + 0)
         cc = pucObject[1]; // 119
         cc = pucObject[2]; // 102
         cc = pucObject[3]; // 85
 
-        // *побайтово читаем номера ячеек pucObject 
+        // *побайтово sdvigaem ukazatel` na i
 
         /**
          * Выполните следующие строки, наблюдая за значениями следующих
@@ -516,7 +549,7 @@ int main()
          * Прежде, чем раскомментировать следующую строчку, вспомните: что
          * нужно сделать, чтобы выражение стало корректным?
          */
-        // pInt=pVoid;
+        pInt=static_cast<int *>(pVoid);
 
     }
     
@@ -528,7 +561,7 @@ int main()
      */
     {
         const int n = 1;
-        //... = &n;
+        void const* pn = &n;
     }
 
     /**
@@ -541,9 +574,9 @@ int main()
 
     {
         double dObject3 = 33.33;
-        // ... pVoid = &dObject3;  //(1)
+        void* pVoid = &dObject3;  //(1)
 
-        // int nTmp = *(static_cast<int*>(pVoid) ); //(2) 
+        int nTmp = *(static_cast<int*>(pVoid)); //(2) --> 1889785610
     }
 
     /**
@@ -567,7 +600,12 @@ int main()
      */
 
     {
+        int a8 = 8;
+        int* const pa8 = &a8;
 
+        // cout << (*pa8) << endl;
+        // (*pa8)++;
+        // pa8++; //error: increment of read-only variable ‘pa8’
     }
     
     /**
@@ -575,7 +613,12 @@ int main()
      */
 
     {
+        int a8 = 8;
+        int const* pa8 = &a8;
 
+        // cout << (*pa8) << endl;
+        // (*pa8)++; //error: increment of read-only location ‘* pa8’
+        // pa8++;
     }
 
     /**
@@ -583,7 +626,12 @@ int main()
      */
 
     {
+        int a8 = 8;
+        int const * const pa8 = &a8;
 
+        // cout << (*pa8) << endl;
+        // (*pa8)++; //increment of read-only location ‘*(const int*)pa8’
+        // pa8++; //increment of read-only variable ‘pa8’
     }
 
     /**
@@ -594,7 +642,8 @@ int main()
      */
 
     {
-        // const int nN = 1;
+        const int nN = 1;
+        int const* pnN = &nN;
     }
 
     /**
@@ -609,22 +658,30 @@ int main()
          * "указывал" на n. 
          */
 
+        int* pn = &n;
+
         /** 
          * Объявите указатель ppn и проинициализируйте его так, чтобы он
          * "указывал" на pn. 
          */
+
+        int** ppn = &pn;
 
         /** 
          * Объявите указатель pppn и проинициализируйте его так, чтобы он
          * "указывал" на ppn. 
          */
 
+        int*** pppn = &ppn;
+
         /** 
          * С помощью указателей pn, ppn и pppn получите значение объекта n и
          * присвойте его m.
          */
 
-        // int m = ...;
+        int m = (*pn);
+        m = (**ppn);
+        m = (***pppn);
     }
     return 0;
 }
