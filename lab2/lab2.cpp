@@ -180,7 +180,7 @@ int main()
         short sRes;
 
         /** sRes == 0x7ff7 */
-        sRes = -sNum - 1;
+        sRes = ~sNum;
     
         /** sRes == 0x8ff8 */
         sRes = sNum | 0x0ff0;
@@ -189,7 +189,7 @@ int main()
         sRes = sNum & 0x000f;
 
         /** sRes == 0x7f08 */
-        sRes = (0xff00 & (-sNum - 1)) | (0x00ff & sNum);
+        sRes = sNum ^ 0xff00;
 
         /** sRes == 0xf001 */
         sRes = sNum >> 3;
@@ -232,7 +232,6 @@ int main()
 
     {
         /** Протестируйте написанный макрос для следующих ситуаций */
-
         float l1 = LENGHT(1 + 2); // должно быть 18.8495...
         float l2 = 1 / LENGHT(2); // должно быть 0.07957...
     }
@@ -503,12 +502,12 @@ int main()
         pucObject = reinterpret_cast<unsigned char*>(pnObject);
 
         /** Проследите за значениями переменной `cc`. Объясните результаты. */
-        cc = pucObject[0]; // -120 <-- znachenie ukazatelia v tochke (bayte) (pucObject + 0) | *(pucObject + 0)
+        cc = pucObject[0]; // -120 <--  Значение указателя в области памяти (pucObject + 0) | *(pucObject + 0)
         cc = pucObject[1]; // 119
         cc = pucObject[2]; // 102
         cc = pucObject[3]; // 85
 
-        // *побайтово sdvigaem ukazatel` na i
+        // *побайтово сдвигаем указатель на i pucObject[i]
 
         /**
          * Выполните следующие строки, наблюдая за значениями следующих
