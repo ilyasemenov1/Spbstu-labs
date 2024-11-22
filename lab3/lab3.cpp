@@ -3,6 +3,16 @@
  * Простейшие алгоритмы сортировки и поиска. Сложные указатели.
  */
 
+#include <iostream>
+#include <iomanip>
+#include <cstdlib>
+#include <ctime>
+#include <cstring>
+#include <string.h>
+#include <string>
+
+using namespace std;
+
 int main()
 {
     /**
@@ -26,6 +36,30 @@ int main()
      *            | 1  1  1 | /
      *            |_________|
      */
+    const int N = 6;
+    const int M = 3;
+    const int K = 3;
+
+    int array1[N][M][K] {
+        {
+            {3,2,1},{3,2,1},{3,2,1}
+        },
+        {
+            {3,2,1},{3,2,1},{3,2,1}
+        },
+        {
+            {3,2,1},{3,2,1},{3,2,1}
+        },
+        {
+            {3,2,1},{3,2,1},{3,2,1}
+        },
+        {
+            {3,2,1},{3,2,1},{3,2,1}
+        },
+        {
+            {3,2,1},{3,2,1},{3,2,1}
+        }
+    };
 
     /**
      * Задание 1.2.
@@ -34,13 +68,40 @@ int main()
      * помощью кода так, чтобы в итоге получился такой же массив, как в задании
      * 1.1.
      */
+    {
+        int progArray[N][M][K];
 
+        for (int i = 0; i < N; i++) {
+            for (int j = 0; j < M; j++) {
+                for (int k = 0; k < K; k++) {
+                    progArray[i][j][k] = 3 - k;
+                    // cout << setw(4) << progArray[i][j][k];
+                }
+                // cout << endl;
+            }
+            // cout << endl;
+        }
+    }
     /**
      * Задание 1.3.
      *
      * Напишите код, с помощью которого можно найти сумму элементов массива,
      * полученного в задании 1.
      */
+
+    {
+        int sum = 0;
+
+        for (int i = 0; i < N; i++) {
+            for (int j = 0; j < M; j++) {
+                for (int k = 0; k < K; k++) {
+                    sum += array1[i][j][k];
+                }
+            }
+        }
+
+        // cout << sum << endl;
+    }
 
     /**
      * Задание 1.4.
@@ -60,7 +121,21 @@ int main()
      * Как это можно сделать наиболее коротким (в смысле количества кода)
      * образом?
      */
+    {
+        int array[6][3][3] {{{3,2,1},{3,2,0},{3,2,0}}};
+        array[3][0][0] = 1;
 
+        // for (int i = 0; i < N; i++) {
+        //     for (int j = 0; j < M; j++) {
+        //         for (int k = 0; k < K; k++) {
+        //             cout << setw(4) << array[i][j][k];
+        //         }
+        //         cout << endl;
+        //     }
+        //     cout << endl;
+        // }
+
+    }
     /**
      * Задание 1.5. Инициализация массивов строковыми литералами.
      * 
@@ -68,6 +143,10 @@ int main()
      * двухмерный массив и массив указателей. Поясните разницу в использовании
      * элементов таких массивов.
      */
+
+    // char str[1][] {
+    //     {"123"}
+    // }
 
     /**
      * Задание 2. Динамическое выделение памяти.
@@ -102,21 +181,108 @@ int main()
      * Функция time() задает эту точку отсчета, считывая текущее время.
      */
 
-    /**
-     * Задание 2.2.
-     *
-     * В сформированном массиве отсортируйте каждую строку по убыванию
-     * значений. Используйте сортировку "выбором".
-     */
+    {
+        srand(time(NULL));
 
-    /**
-     * Задание 2.3.
-     *
-     * Объявите одномерный массив размерностью N. 
-     *
-     * Сформируйте значение i-ого элемента одномерного массива  равным среднему
-     * значению элементов i-ой строки двухмерного массива.
-     */
+        int N = rand() % 10 + 1;
+        int M = rand() % 10 + 1;
+
+        // Выделение памяти под динамический массив
+        int** nums{new int* [N]{}};
+
+        //Выделение памяти под строку динамического массива
+        for (int i = 0; i < N; i++) {
+            nums[i] = new int[M]{};
+        }
+
+        int sum = 0;
+
+        for (int i = 0; i < N; i++) {
+            for (int j = 0; j < M; j++) {
+                nums[i][j] = rand() % 10;
+                sum += nums[i][j];
+                // cout << setw(4) << nums[i][j];
+            }
+            // cout << endl;
+        }
+
+        // cout << sum << endl;
+        // cout << endl;
+
+        /**
+         * Задание 2.2.
+         *
+         * В сформированном массиве отсортируйте каждую строку по убыванию
+         * значений. Используйте сортировку "выбором".
+         */
+
+        for (int i = 0; i < N; i++) {
+            int min = 0;
+            int buf = 0;
+
+            for (int j = 0; j < M; j++) {
+                min = j;
+                for (int k = j + 1; k < M; k++) min = (nums[i][k] < nums[i][min]) ? k : min;
+
+                if (j != min) {
+                    buf = nums[i][j];
+                    nums[i][j] = nums[i][min];
+                    nums[i][min] = buf;
+                }
+            }
+        }
+
+        // for (int i = 0; i < N; i++) {
+        //     for (int j = 0; j < M; j++) {
+        //         cout << setw(4) << nums[i][j];
+        //     }
+        //     cout << endl;
+        // }
+
+
+        /**
+         * Задание 2.3.
+         *
+         * Объявите одномерный массив размерностью N. 
+         *
+         * Сформируйте значение i-ого элемента одномерного массива  равным среднему
+         * значению элементов i-ой строки двухмерного массива.
+         */
+
+
+        double* arr = new double[N];
+
+        for (int i = 0; i < N; i++) {
+            int sum = 0;
+            for (int j = 0; j < M; j++) {
+                sum += nums[i][j];
+            }
+            arr[i] = sum/static_cast<double>(N);
+        }
+
+        // for (int i = 0; i < N; i++) {
+        //     cout << ' ' << arr[i];
+        // }
+
+        //Отчистка памяти, без отчистки:
+        // ==43131==LeakSanitizer has encountered a fatal error.
+        // ==43131==HINT: For debugging, try setting environment variable LSAN_OPTIONS=verbosity=1:log_threads=1
+        // ==43131==HINT: LeakSanitizer does not work under ptrace (strace, gdb, etc)
+        // [Inferior 1 (process 43131) exited with code 01]
+
+        for (int i = 0; i < N; i++) {
+            delete[] nums[i];
+            nums[i] = nullptr;
+        }
+
+        delete[] nums;
+        delete[] arr;
+
+        nums = nullptr;
+        arr = nullptr;
+    }
+
+
 
     /**
      * Задание 2.4. 
@@ -150,6 +316,47 @@ int main()
      * k*N^2, где k - некоторое число.
      */
 
+    {
+        int N = min(rand() % 10 + 4, 7);
+        int* arr = new int[N];
+
+        for (int j = 0; j < N; j++) arr[j] = 0; 
+
+        for (int i = 0; i < N; i++) {
+            // cin >> arr[i];
+            arr[i] = rand() % 10 + 1;
+
+            int* arrSort = new int[N]; 
+
+            for (int j = 0; j < N; j++) arrSort[j] = arr[j];
+
+            int min = 0;
+            int buf = 0;
+
+            for (int j = 0; j < N; j++) {
+                min = j;
+                for (int k = j + 1; k < N; k++) min = (arrSort[k] < arrSort[min]) ? k : min;
+
+                if (j != min) {
+                    buf = arrSort[j];
+                    arrSort[j] = arrSort[min];
+                    arrSort[min] = buf;
+                }
+            }
+
+            // for (int j = 0; j < N; j++) {
+            //     cout << ' ' << arrSort[j];
+            // }
+            // cout << endl;
+
+            delete[] arrSort;
+            arrSort = nullptr;
+        }
+
+        delete[] arr;
+        arr = nullptr;
+    }
+
     /**
      * Задание 3.2. Простой поиск.
      *
@@ -158,6 +365,54 @@ int main()
      * дубли игнорируются).
      */
 
+    {
+        int N = min(rand() % 10 + 4, 7);
+        int* arr = new int[N];
+
+        for (int j = 0; j < N; j++) arr[j] = 0; 
+
+        for (int i = 0; i < N; i++) {
+            int value = rand() % 10 + 1;
+            // cin >> value;
+            bool isUnic = true;
+            for (int j = 0; j < N; j++) {
+                if (arr[j] == value) {
+                    isUnic = false;
+                    break;
+                }
+            } 
+            arr[i] = isUnic ? value : 0;
+
+            int* arrSort = new int[N]; 
+
+            for (int j = 0; j < N; j++) arrSort[j] = arr[j];
+
+            int min = 0;
+            int buf = 0;
+
+            for (int j = 0; j < N; j++) {
+                min = j;
+                for (int k = j + 1; k < N; k++) min = (arrSort[k] < arrSort[min]) ? k : min;
+
+                if (j != min) {
+                    buf = arrSort[j];
+                    arrSort[j] = arrSort[min];
+                    arrSort[min] = buf;
+                }
+            }
+
+            // for (int j = 0; j < N; j++) {
+            //     cout << ' ' << arrSort[j];
+            // }
+            // cout << endl;
+
+            delete[] arrSort;
+            arrSort = nullptr;
+        }
+
+        delete[] arr;
+        arr = nullptr;
+    }
      
     /**
      * Задание 4. Сортировка строк.
@@ -179,51 +434,83 @@ int main()
      */
 
     {
-        /** Определите необходимые значения как константы */
+        // /** Определите необходимые значения как константы */
 
-        // STOP_STRING  -  "*"  //признак "прекратить ввод"
-        // M  -  80 //максимальный размер одной строки
-        // N  -  10 //максимальное количество строк в массиве
+        // const char STOP_STRING = '*';  //признак "прекратить ввод"
+        // const int M = 80; //максимальный размер одной строки
+        // const int N = 10; //максимальное количество строк в массиве
 
-        /** 
-         * Объявите двухмерный массив с именем cBuffer типа char и размерностью
-         * N*M.
-         */
+        // /** 
+        //  * Объявите двухмерный массив с именем cBuffer типа char и размерностью
+        //  * N*M.
+        //  */
 
-        /**
-         * Объявите массив (с именем cPointers) указателей на строки
-         * размерностью N.
-         */
+        // char cBuffer[N][M]; 
 
+        // /**
+        //  * Объявите массив (с именем cPointers) указателей на строки
+        //  * размерностью N.
+        //  */
 
-        /** 
-         * Цикл ввода строк:
-         * 1. выведите приглашение для ввода; 
-         * 2. пока не введена строка STOP_STRING или не заполнен весь массив; 
-         */
+        // char* cPointers[N];
 
-        {
-            /** ввод строки в массив cBuffer: */
+        // /** 
+        //  * Цикл ввода строк:
+        //  * 1. выведите приглашение для ввода; 
+        //  * 2. пока не введена строка STOP_STRING или не заполнен весь массив; 
+        //  */
+
+        // int strIndex = N - 1;
+
+        // for (int nIndex = 0; nIndex < N; nIndex++) {
+        //     /** ввод строки в массив cBuffer: */
+        //     cin >> cBuffer[nIndex];
                                     
-            /** если введена строка - признак окончания, то выйти из цикла */
+        //     /** если введена строка - признак окончания, то выйти из цикла */
 
-            /** Присвойте элементу массива cPointers с индексом nIndex */
+        //     if (cBuffer[nIndex][0] == STOP_STRING) {
+        //         strIndex = nIndex - 1;
+        //         break;
+        //     }
 
-            /** указатель на строку с номером nIndex в массиве cBuffer */
+        //     /** Присвойте элементу массива cPointers с индексом nIndex */
+        //     cPointers[nIndex] = cBuffer[nIndex]; 
+            
 
-        }
+        //     /** указатель на строку с номером nIndex в массиве cBuffer */
+
+        // }
 
 
-        /** Выдать диагностику о том, что прием строк завершен.*/
+        // /** Выдать диагностику о том, что прием строк завершен.*/
 
-        /**
-         * Теперь сортируем строки.
-         *
-         * Необходимо использовать сортировку строк по методу "всплывающего
-         * пузырька" в порядке возрастания. 
-         *
-         * На каждой итерации - промежуточная печать отсортированных строк.
-         */
+        // cout << "Lines addition ended!" << endl;
+
+        // /**
+        //  * Теперь сортируем строки.
+        //  *
+        //  * Необходимо использовать сортировку строк по методу "всплывающего
+        //  * пузырька" в порядке возрастания. 
+        //  *
+        //  * На каждой итерации - промежуточная печать отсортированных строк.
+        //  */
+
+        // for (int i = 0; i < strIndex; i++) {
+        //     for (int j = 0; j < strIndex; j++) {
+        //         if (strcmp(cPointers[j], cPointers[j+1]) > 0) {
+        //             char* buff = cPointers[j];
+        //             cPointers[j] = cPointers[j+1];
+        //             cPointers[j+1] = buff;
+        //         }
+        //     }
+        //     for (int k = 0; k < strIndex + 1; k++) {
+        //         for (int s = 0; s < M; s++) {
+        //             cout << *(cPointers[k] + s);
+        //         }
+        //         cout << endl;
+        //     }
+        //     cout << endl;
+        // }
 
     }
 
@@ -245,17 +532,77 @@ int main()
      */
 
     {
-        int nStringNumber;
+        // int nStringNumber;
+        // cin >> nStringNumber;
 
-        /** Цикл ввода строк: */
+        // const char STOP_STRING = '*';
 
-        /** 
-         * Цикл сортировки строк по методу "всплывающего пузырька" в порядке
-         * возрастания кода первого символа.
-         */
+        // char** buffer = { new char*[nStringNumber]{} };
+        // char** pointers = new char*[nStringNumber];
+        // int* sizes = new int[nStringNumber];
 
-        /** Освобождение занятой памяти */
+        // int strIndex = nStringNumber - 1;
+        // int maxSize = 0;
 
+
+        // /** Цикл ввода строк: */
+
+        // for (int nIndex = 0; nIndex < nStringNumber; nIndex++) {
+
+        //     char* str;
+        //     cin >> str;
+
+        //     int size = strlen(str);
+        //     sizes[nIndex] = size;
+
+        //     buffer[nIndex] = new char[size]{};
+        //     for (int j = 0; j < size; j++) buffer[nIndex][j] = str[j];
+
+                                    
+        //     if (buffer[nIndex][0] == STOP_STRING) {
+        //         strIndex = nIndex - 1;
+        //         break;
+        //     }
+
+        //     pointers[nIndex] = buffer[nIndex]; 
+        // }
+
+        // /** 
+        //  * Цикл сортировки строк по методу "всплывающего пузырька" в порядке
+        //  * возрастания кода первого символа.
+        //  */
+
+        // for (int i = 0; i < strIndex; i++) {
+        //     for (int j = 0; j < strIndex; j++) {
+        //         if (strcmp(pointers[j], pointers[j+1]) > 0) {
+        //             char* buff = pointers[j];
+        //             int ib = sizes[j];
+        //             pointers[j] = pointers[j+1];
+        //             sizes[j] = sizes[j+1];
+        //             pointers[j+1] = buff;
+        //             sizes[j] = ib;
+        //         }
+        //     }
+        // }
+
+        // for (int k = 0; k < strIndex + 1; k++) {
+        //     for (int s = 0; s < sizes[k]; s++) {
+        //         cout << *(pointers[k] + s);
+        //     }
+        //     cout << endl;
+        // }
+
+        // /** Освобождение занятой памяти */
+
+
+        // delete[] buffer;
+        // buffer = nullptr;
+
+        // delete[] pointers;
+        // pointers = nullptr;
+
+        // delete [] sizes;
+        // sizes = nullptr;
     }
 
     /** 
@@ -289,6 +636,73 @@ int main()
      *  адекватно выглядели в коде.
      */
   
+    {
+        const int SPACE = 32;
+
+        char* text = "Lorem ipsum dolor sit, amet consectetur adipisicing elit. Accusamus et iure distinctio nobis suscipit nam. Eos ea minus consequuntur adipisci voluptatum. Modi veritatis, consequuntur repudiandae quae ducimus sequi ";
+        int size = strlen(text);
+
+        int* spaces = new int[size];
+        int countSpaces = 0;
+        int iSpases = 0;
+
+        char** worlds = { new char*[size]{} };
+        for (int i = 0; i < size; i++) {
+            worlds[i] = new char[size]();
+        }
+
+        int l = 0;
+        int wSize = 0;
+        int wCounter = 0;
+        for (int r = 0; r < size - 1; r++) {
+            if (text[r] != SPACE) {
+                wSize++;
+                worlds[wCounter][wSize - 1] = text[r];
+            } else {
+                while (l != r) {
+                    if (text[l] == SPACE) spaces[wCounter]++;
+                    l++;
+                }
+                wCounter++;
+                wSize = 0;
+            }
+        }
+
+        char** lines = { new char*[size/40+1] };
+        for (int i = 0; i < size/40+1; i++) {
+            lines[i] = new char[40];
+        }
+        int currentLineLengh = 0;
+        int line = 0;
+
+        for (int i = 0; i < wCounter + 1; i++) {
+            int worldSize = strlen(worlds[i]);
+            int spacesCount  = spaces[i];
+
+            if (spacesCount) {
+                lines[line][currentLineLengh] = ' ';
+                currentLineLengh++;
+            }
+
+            if (worldSize + currentLineLengh > 40) {
+                line++;
+                currentLineLengh = 0;
+            }
+
+            int j = 0;
+            for (;j < worldSize; j++) lines[line][currentLineLengh + j] = worlds[i][j];
+            currentLineLengh += j;
+        }
+
+
+        int p = 0;
+        p++;
+
+        delete[] spaces;
+        delete[] worlds;
+        delete[] lines;
+    }
+
 
     /** 
      * Задание 7. Сложные указатели.
