@@ -616,13 +616,13 @@ int main()
 
         // char** worlds = { new char*[size]{} };
         // for (int i = 0; i < size; i++) {
-        //     worlds[i] = new char[size]();
+        //     worlds[i] = new char[size]{};
         // }
 
         // int l = 0;
         // int wSize = 0;
         // int wCounter = 0;
-        // for (int r = 0; r < size - 1; r++) {
+        // for (int r = 0; r < size; r++) {
         //     if (text[r] != SPACE) {
         //         wSize++;
         //         worlds[wCounter][wSize - 1] = text[r];
@@ -635,11 +635,15 @@ int main()
         //         wSize = 0;
         //     }
         // }
-        // int numLines = size / LINE_WIDTH + 5;
-        // char** lines = { new char*[numLines] };
+        
+        // spaces[wCounter] = 1;
+        // int numLines = size;
+
+        // char** lines = { new char*[numLines]{} };
         // for (int i = 0; i < numLines; i++) {
-        //     lines[i] = new char[LINE_WIDTH];
+        //     lines[i] = new char[LINE_WIDTH]{};
         // }
+
         // int currentLineLengh = 0;
         // int line = 0;
 
@@ -670,21 +674,26 @@ int main()
         //     currentLineLengh += k;
         // }
 
-        // if (lines[numLines - 1][0] == 0) numLines--;
+        // for (int i = 0; i < size; i++) {
+        //     if (lines[i][0] == 0) {
+        //         numLines = i;
+        //         break;
+        //     }
+        // }
 
         // cout << ' ';
         // for (int i = 0; i < LINE_WIDTH + 2; i++) cout << '-';
         // cout << endl;
         // for (int i = 0; i < numLines; i++) {
-        //     if (i == 0) cout << "/ ";
-        //     if (i > 0 && i < numLines - 1) cout << "| ";
-        //     if (i ==  numLines - 1) cout << "\\ ";
+        //     if (i == 0 && numLines != 1) cout << "/ ";
+        //     else if (i > 0 && i < numLines - 1 || numLines == 1) cout << "| ";
+        //     else cout << "\\ ";
 
         //     for (int j = 0; j < LINE_WIDTH; j++) (lines[i][j] != 0) ? cout << lines[i][j] : cout << ' ';
 
-        //     if (i == 0) cout << " \\";
-        //     if (i > 0 && i < numLines - 1) cout << " |";
-        //     if (i ==  numLines - 1) cout << " /";
+        //     if (i == 0 && numLines != 1) cout << " \\";
+        //     else if (i > 0 && i < numLines - 1 || numLines == 1) cout << " |";
+        //     else cout << " /";
 
         //     cout << endl;
         // }
