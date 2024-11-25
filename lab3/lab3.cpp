@@ -3,6 +3,8 @@
  * Простейшие алгоритмы сортировки и поиска. Сложные указатели.
  */
 
+#include <cstddef>
+#include <cstdio>
 #include <iostream>
 #include <iomanip> //Для setw
 #include <cstdlib>
@@ -212,11 +214,7 @@ int main()
                 min = j;
                 for (int k = j + 1; k < M; k++) min = (nums[i][k] < nums[i][min]) ? k : min;
 
-                if (j != min) {
-                    buf = nums[i][j];
-                    nums[i][j] = nums[i][min];
-                    nums[i][min] = buf;
-                }
+                if (j != min) swap(nums[i][j], nums[i][min]);
             }
         }
 
@@ -226,7 +224,6 @@ int main()
         //     }
         //     cout << endl;
         // }
-
 
         /**
          * Задание 2.3.
@@ -251,17 +248,17 @@ int main()
         // for (int i = 0; i < N; i++) {
         //     cout << ' ' << arr[i];
         // }
+        // cout << endl;
 
-        //Отчистка памяти, без отчистки:
-        // ==43131==LeakSanitizer has encountered a fatal error.
-        // ==43131==HINT: For debugging, try setting environment variable LSAN_OPTIONS=verbosity=1:log_threads=1
-        // ==43131==HINT: LeakSanitizer does not work under ptrace (strace, gdb, etc)
-        // [Inferior 1 (process 43131) exited with code 01]
+        for (int i = 0; i < N; i++) {
+            delete[] nums[i];
+            nums[i] = nullptr;
+        }
 
         delete[] nums;
-        delete[] arr;
-
         nums = nullptr;
+
+        delete[] arr;
         arr = nullptr;
     }
 
@@ -715,8 +712,18 @@ int main()
         // delete[] worlds;
         // worlds = nullptr;
 
+        // for (int i = 0; i < size; i++) {
+        //     delete[] worlds[i];
+        //     worlds[i] = nullptr;
+        // }
+
         // delete[] lines;
         // lines = nullptr;
+
+        // for (int i = 0; i < size; i++) {
+        //     delete[] lines[i];
+        //     lines[i] = nullptr;
+        // }
     }
 
 

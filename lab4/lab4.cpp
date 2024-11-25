@@ -8,6 +8,7 @@
 
 #include "other.h"
 
+using namespace std;
 
 int main()
 {
@@ -18,7 +19,9 @@ int main()
      */
 
     {
-
+        double num = 5;
+        double &rnum = num;
+        rnum++; //num = 6
     }
 
     /**
@@ -29,6 +32,9 @@ int main()
      */
     {
         // int &ref = 1;
+
+        int number = 1;
+        int &ref = number;
     }
 
     /**
@@ -42,6 +48,10 @@ int main()
     {
         char c='A';
         char* pc = &c;
+        char* &rpc = pc;
+
+        (*rpc)++;
+        rpc++;
     }
 
     /**
@@ -68,8 +78,11 @@ int main()
          * Значение этой переменной должно быть увеличено с помощью каждой из
          * функций на единицу.
          */
-        int val =1;
+        int val = 1;
 
+        val = incByValue(val);
+        val = incByPointer(&val);
+        val = incByReference(val);
     }
 
     /**
@@ -91,8 +104,17 @@ int main()
         int nY = -1;
         /** поменяли местами значения nX и nY с помощью указателей на nX и nY */
         // swap(...  ,  ...);
+
+        swapPtr(&nX, &nY);
+
+        // cout << nX << ' ' << nY << endl;
+
         /** а теперь обратно с помощью ссылок на nX и nY */
         // swap(...  ,  ...);
+
+        swapRef(nX, nY);
+
+        // cout << nX << ' ' << nY << endl;
     }
 
     /**
