@@ -135,8 +135,24 @@ int main()
      * элементов таких массивов.
      */
 
-    char charArr[3][2] = {{'a', 'b'}, {'a', 'b'}, {'a', 'b'}};
+    char strArr[4][10] = {
+        "This",
+        "is",
+        "lab3",
+        "code"
+    };
+
+    //Использует фикс. ширину строки (10 символов)
+
+    char* ptrStrArr[4] {
+        "This",
+        "is",
+        "lab3",
+        "code"
+    };
     
+    //Исп. переменную ширину строки (хранится где-то в памяти)
+
 
     /**
      * Задание 2. Динамическое выделение памяти.
@@ -560,6 +576,11 @@ int main()
 
         // delete[] buffer;
         // buffer = nullptr;
+
+        // for (int i = 0; i < nStringNumber; i++) {
+        //     delete buffer[i];
+        //     buffer[i] = nullptr;
+        // }
 
         // delete[] pointers;
         // pointers = nullptr;
