@@ -730,21 +730,21 @@ int main()
         // delete[] spaces;
         // spaces = nullptr;
 
-        // delete[] worlds;
-        // worlds = nullptr;
-
         // for (int i = 0; i < size; i++) {
         //     delete[] worlds[i];
         //     worlds[i] = nullptr;
         // }
 
-        // delete[] lines;
-        // lines = nullptr;
+        // delete[] worlds;
+        // worlds = nullptr;
 
         // for (int i = 0; i < size; i++) {
         //     delete[] lines[i];
         //     lines[i] = nullptr;
         // }
+        
+        // delete[] lines;
+        // lines = nullptr;
     }
 
 

@@ -136,11 +136,25 @@ int main()
      */
     {
         /** Задайте массивы для проверки и проверьте результат работы функции */
+        srand(time(NULL));
+
+        int arr[5] = {1,6,3,8,9};
+
+        int arrTwoD[3][5];
+        for (int i = 0; i < 3; i++) {
+            for (int j = 0; j < 5; j++) {
+                arrTwoD[i][j] = rand() % 100 + 1;
+            }
+        }
+
+        int min = minInArray(arr, 5);
 
         /** 
          * Покажите, как можно использовать эту функцию для встроенных
          * двумерных массивов.
          */
+
+        int min2 = minIn2DArray((int*) arrTwoD, 3, 5);
     }
 
     /**
@@ -160,9 +174,16 @@ int main()
     {
         /** Создайте две строки для сравнения */
 
+        char* string1 = "abad";
+        char* string2 = "abrd";
+
         /** Вызовите функцию сравнения */
         
+        int res = myStrCmp(string1, string2);
+
         /** Выведите результат сравнения с помощью cout */
+
+        cout << res << endl;
     }
 
     /**
@@ -237,8 +258,11 @@ int main()
 
         /** Вызов функции DayOfYear */
 
+        cout << dayOfYear(17, 4, 2024, nDayTab) << endl;
+
         /** Проверка результата обратной функцией DayOfMonth */
 
+    
     }
 
     /**
