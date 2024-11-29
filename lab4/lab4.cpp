@@ -2,6 +2,7 @@
  * Практическое занятие №4. Функции. Объявление, определение, вызов. Передача
  * параметров. Возвращение значения.
  */
+#include <cstdlib>
 #include <iostream>
 //#include <cstdio>
 //#include <cstdarg>
@@ -183,7 +184,7 @@ int main()
 
         /** Выведите результат сравнения с помощью cout */
 
-        cout << res << endl;
+        // cout << res << endl;
     }
 
     /**
@@ -258,11 +259,14 @@ int main()
 
         /** Вызов функции DayOfYear */
 
-        cout << dayOfYear(17, 4, 2024, nDayTab) << endl;
+        // cout << dayOfYear(17, 4, 2024, (int*) nDayTab) << endl;
 
         /** Проверка результата обратной функцией DayOfMonth */
 
-    
+        int* monthData = dayOfMonth(200, 2024, (int*) nDayTab);
+        // cout << monthData[0] << ' ' << monthData[1] << endl;
+
+        delete[] monthData;
     }
 
     /**
@@ -280,29 +284,31 @@ int main()
      */
 
     {
-        int n; // сформируйте значение n
-        int *arr; // создайте тут массив размера n
+        int n = 100; // сформируйте значение n
+        int *arr = new int[n]; // создайте тут массив размера n
         
         /** заполнение случайными значениями */
         for (int i = 0; i < n; ++i) {
-            // arr[i] = ...;
+            arr[i] = rand() % 100 + 1;
         }
 
         for (int i = 0; i < 100; ++i) {
-            int new_value;
-            // new_value = ...; // случайное значение
-            new_value = new_value % 10;
+            int newValue;
+            newValue = rand(); // случайное значение
+            newValue = newValue % 10;
             /** вызов функции добавления в массив */
-            // add_unique(arr, ..., new_value);  
+            addUnique(arr, i, n, newValue);  
         }
         
         /** печать массива на экран */
-        // print_array(arr, ...)
+        // printArray(arr, n);
 
         /**
          * Тут должно быть не более 10 + n элементов, так как во втором цикле
          * могут быть получены только 10 разных вариантов.
          */
+
+        delete[] arr;        
     }
 
     /**
@@ -311,6 +317,8 @@ int main()
      * Напишите рекурсивную функцию вычисления суммы первых N натуральных
      * чисел.
      */
+
+    //  cout << sumN(4) << endl;
 
     /**
      * Задание 7. Кодирование-декодирование информации. Обработка ошибок.
