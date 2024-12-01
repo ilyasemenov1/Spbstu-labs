@@ -266,10 +266,10 @@ int main()
 
         /** Проверка результата обратной функцией DayOfMonth */
 
-        int* month_sata = day_of_month(200, 2024, (int*) n_day_tab);
+        int* month_data = day_of_month(200, 2024, (int*) n_day_tab);
         // cout << monthData[0] << ' ' << monthData[1] << endl;
 
-        delete[] month_sata;
+        delete[] month_data;
     }
 
     /**

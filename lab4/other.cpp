@@ -35,7 +35,7 @@ int min_in_array(const int* arr, const int arr_size) {
 
     int min = 1000;
     for (int i = 0; i < arr_size; i++) {
-        min = *(arr + i) < min ? *(arr + i) : min;
+        min = arr[i] < min ? arr[i] : min;
     }
 
     return min;
@@ -46,8 +46,8 @@ int min_in_2d_array(const int* arr, const int arr_rows, const int arr_colums) {
 
     int min = 1000;
     for (int i = 0; i < arr_rows; i++) {
-        int minLow = min_in_array(arr + i * arr_colums,arr_colums );
-        min = minLow < min ? minLow : min;
+        int min_low = min_in_array(arr + i * arr_colums,arr_colums );
+        min = min_low < min ? min_low : min;
     }
 
     return min;
