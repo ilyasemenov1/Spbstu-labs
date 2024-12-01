@@ -2,6 +2,8 @@
 #include <codecvt>
 #include <iostream>
 #include <iomanip>
+#include <bitset>
+#include <string.h>
 
 using namespace std;
 
@@ -113,13 +115,117 @@ int sumN(int n) {
     return n > 1 ? n + sumN(n - 1) : 1;
 }
 
-const char table[32] = {
+const char ENCODE_TABLE[32] = {
     'A', 'B', 'C', 'D', 'E', 'F', 'G', 'H',
     'I', 'J', 'K', 'L', 'M', 'N', 'O', 'P',
     'Q', 'R', 'S', 'T', 'U', 'V', 'W', 'X',
     'Y', 'Z', '1', '2', '3', '4', '5', '6'
 };
 
-// int encoded32_size(int raw_size) {
+int* generateDecodeTable(char* encodeTable) {
+    int* decodeTable = new int[32];
+    for (int i = 0; i < 32; ++i) decodeTable[i] = -1;
+    for (int i = 0; i < 32; ++i) {
+        decodeTable[(unsigned char)(encodeTable[i])] = i;
+    }
 
-// }
+    return decodeTable;
+}
+
+int encoded32Size(int rawSize) {
+    return (rawSize * 8) / 5 + 1;
+}
+
+int decoded32Size(int encodeSize) {
+    return (encodeSize * 5) / 8;
+}
+
+int encode32(char* rawData, int rawSize, char* dst) {
+    if (!rawData || rawSize <= 0 || !dst) return 1;
+
+    int bitLineBuffer = 0;
+    int bitLineSize = 0;
+    int dstIndex = 0;
+
+    for (int i = 0; i < rawSize; ++i) {
+        char symbol = rawData[i];
+        bitLineBuffer = (bitLineBuffer << 8) | (unsigned char) symbol;
+        bitLineSize += 8;
+
+        while (bitLineSize >= 5) {
+            bitLineSize -= 5;
+            int encodeTableSymbolIndex = (bitLineBuffer >> bitLineSize) & 0x1F;
+            dst[dstIndex++] = ENCODE_TABLE[encodeTableSymbolIndex];
+        }
+    }
+
+    if (bitLineSize > 0) {
+        int encodeTableSymbolIndex = (bitLineBuffer << (5 - bitLineSize)) & 0x1F;
+        dst[dstIndex] = ENCODE_TABLE[encodeTableSymbolIndex];
+    }
+
+    return 0;
+}
+
+int decode32(char* encodedData, int encodedSize, char* dst) {
+    if (!encodedData || encodedSize <= 0 || !dst) return 1;
+    const int* DECODE_TABLE = generateDecodeTable((char*) ENCODE_TABLE);
+
+    int bitLineBuffer = 0;
+    int bitLineSize = 0;
+    int dstIndex = 0;
+
+
+    for (int i = 0; dstIndex < encodedSize; ++i) {
+        char symbol = encodedData[i];
+        int value = DECODE_TABLE[(unsigned char) symbol];
+        if (value == -1) return 2;
+
+        bitLineBuffer = (bitLineBuffer << 5) | value;
+        bitLineSize += 5;
+
+        while (bitLineSize >= 8) {
+            bitLineSize -= 8;
+            dst[dstIndex++] = (bitLineBuffer >> bitLineSize) & 0xFF;
+        } 
+
+    }
+
+    delete[] DECODE_TABLE;
+
+    return 0;
+}
+
+char* encodeString(char* string) {
+    int rawSize = strlen(string);
+    int encodedSize = encoded32Size(rawSize);
+    
+    char* encodedStrig = new char[encodedSize];
+
+    int key = encode32(string, rawSize, encodedStrig);
+
+    for (int i = 0; i < encodedSize; i++) {
+        cout << encodedStrig[i];
+    }
+    cout << endl;
+
+    cout << "Encoding finished with exit code " << key << '.' << endl;
+
+    return encodedStrig;
+}
+
+char* decodeString(char* encodedStrig) {
+    int decodedSize = decoded32Size(strlen(encodedStrig));
+    char* decodedString = new char[decodedSize];
+
+    int key = decode32(encodedStrig, decodedSize, decodedString);
+
+    for (int i = 0; i < decodedSize; i++) {
+        cout << decodedString[i];
+    }
+    cout << endl;
+
+    cout << "Decoding finished with exit code " << key << '.' << endl;
+
+    return decodedString;
+}

@@ -64,9 +64,9 @@ int main()
     {
         int progArray[N][M][K];
 
-        for (int i = 0; i < N; i++) {
-            for (int j = 0; j < M; j++) {
-                for (int k = 0; k < K; k++) {
+        for (int i = 0; i < N; ++i) {
+            for (int j = 0; j < M; ++j) {
+                for (int k = 0; k < K; ++k) {
                     progArray[i][j][k] = i + 1;
                     // cout << setw(4) << progArray[i][j][k];
                 }
@@ -85,9 +85,9 @@ int main()
     {
         int sum = 0;
 
-        for (int i = 0; i < N; i++) {
-            for (int j = 0; j < M; j++) {
-                for (int k = 0; k < K; k++) {
+        for (int i = 0; i < N; ++i) {
+            for (int j = 0; j < M; ++j) {
+                for (int k = 0; k < K; ++k) {
                     sum += array1[i][j][k];
                 }
             }
@@ -116,9 +116,9 @@ int main()
      */
     {
         int array[M][N][K] = {{{1}}, {{2}}, {{3}}};
-        // for (int i = 0; i < N; i++) {
-        //     for (int j = 0; j < M; j++) {
-        //         for (int k = 0; k < K; k++) {
+        // for (int i = 0; i < N; ++i) {
+        //     for (int j = 0; j < M; ++j) {
+        //         for (int k = 0; k < K; ++k) {
         //             cout << setw(4) << array[i][j][k];
         //         }
         //         cout << endl;
@@ -197,14 +197,14 @@ int main()
         int** nums{new int* [N]{}};
 
         //Выделение памяти под строку динамического массива
-        for (int i = 0; i < N; i++) {
+        for (int i = 0; i < N; ++i) {
             nums[i] = new int[M]{};
         }
 
         int sum = 0;
 
-        for (int i = 0; i < N; i++) {
-            for (int j = 0; j < M; j++) {
+        for (int i = 0; i < N; ++i) {
+            for (int j = 0; j < M; ++j) {
                 nums[i][j] = rand() % 10;
                 sum += nums[i][j];
                 // cout << setw(4) << nums[i][j];
@@ -222,20 +222,20 @@ int main()
          * значений. Используйте сортировку "выбором".
          */
 
-        for (int i = 0; i < N; i++) {
+        for (int i = 0; i < N; ++i) {
             int min = 0;
             int buf = 0;
 
-            for (int j = 0; j < M; j++) {
+            for (int j = 0; j < M; ++j) {
                 min = j;
-                for (int k = j + 1; k < M; k++) min = (nums[i][k] < nums[i][min]) ? k : min;
+                for (int k = j + 1; k < M; ++k) min = (nums[i][k] < nums[i][min]) ? k : min;
 
                 if (j != min) swap(nums[i][j], nums[i][min]);
             }
         }
 
-        // for (int i = 0; i < N; i++) {
-        //     for (int j = 0; j < M; j++) {
+        // for (int i = 0; i < N; ++i) {
+        //     for (int j = 0; j < M; ++j) {
         //         cout << setw(4) << nums[i][j];
         //     }
         //     cout << endl;
@@ -253,20 +253,20 @@ int main()
 
         double* arr = new double[N];
 
-        for (int i = 0; i < N; i++) {
+        for (int i = 0; i < N; ++i) {
             int sum = 0;
-            for (int j = 0; j < M; j++) {
+            for (int j = 0; j < M; ++j) {
                 sum += nums[i][j];
             }
             arr[i] = sum/static_cast<double>(N);
         }
 
-        // for (int i = 0; i < N; i++) {
+        // for (int i = 0; i < N; ++i) {
         //     cout << ' ' << arr[i];
         // }
         // cout << endl;
 
-        for (int i = 0; i < N; i++) {
+        for (int i = 0; i < N; ++i) {
             delete[] nums[i];
             nums[i] = nullptr;
         }
@@ -316,23 +316,23 @@ int main()
         // int N = min(rand() % 10 + 4, 7);
         // int* arr = new int[N]{};
 
-        // for (int i = 0; i < N; i++) {
+        // for (int i = 0; i < N; ++i) {
         //     cin >> arr[i];
 
         //     int* arrSort = new int[N]; 
 
-        //     for (int j = 0; j < N; j++) arrSort[j] = arr[j];
+        //     for (int j = 0; j < N; ++j) arrSort[j] = arr[j];
 
         //     int min = 0;
 
-        //     for (int j = 0; j < N; j++) {
+        //     for (int j = 0; j < N; ++j) {
         //         min = j;
-        //         for (int k = j + 1; k < N; k++) min = (arrSort[k] < arrSort[min]) ? k : min;
+        //         for (int k = j + 1; k < N; ++k) min = (arrSort[k] < arrSort[min]) ? k : min;
 
         //         if (j != min) swap(arrSort[j], arrSort[min]);
         //     }
 
-        //     for (int j = 0; j < N; j++) {
+        //     for (int j = 0; j < N; ++j) {
         //         cout << ' ' << arrSort[j];
         //     }
         //     cout << endl;
@@ -357,13 +357,13 @@ int main()
         // int N = min(rand() % 10 + 4, 7);
         // int* arr = new int[N];
 
-        // for (int j = 0; j < N; j++) arr[j] = 0; 
+        // for (int j = 0; j < N; ++j) arr[j] = 0; 
 
-        // for (int i = 0; i < N; i++) {
+        // for (int i = 0; i < N; ++i) {
         //     int value;
         //     cin >> value;
         //     bool isUnic = true;
-        //     for (int j = 0; j < N; j++) {
+        //     for (int j = 0; j < N; ++j) {
         //         if (arr[j] == value) {
         //             isUnic = false;
         //             break;
@@ -374,19 +374,19 @@ int main()
 
         //     int** arrSort = new int*[N]; 
 
-        //     for (int j = 0; j < N; j++) arrSort[j] = &arr[j];
+        //     for (int j = 0; j < N; ++j) arrSort[j] = &arr[j];
 
         //     int min = 0;
         //     int buf = 0;
 
-        //     for (int j = 0; j < N; j++) {
+        //     for (int j = 0; j < N; ++j) {
         //         min = j;
-        //         for (int k = j + 1; k < N; k++) min = (*arrSort[k] < *arrSort[min]) ? k : min;
+        //         for (int k = j + 1; k < N; ++k) min = (*arrSort[k] < *arrSort[min]) ? k : min;
 
         //         if (j != min) swap(arrSort[j], arrSort[min]);
         //     }
 
-        //     for (int j = 0; j < N; j++) {
+        //     for (int j = 0; j < N; ++j) {
         //         cout << ' ' << *arrSort[j];
         //     }
         //     cout << endl;
@@ -480,13 +480,13 @@ int main()
     //      * На каждой итерации - промежуточная печать отсортированных строк.
     //      */
 
-    //     for (int i = 0; i < strIndex; i++) {
-    //         for (int j = 0; j < strIndex; j++) {
+    //     for (int i = 0; i < strIndex; ++i) {
+    //         for (int j = 0; j < strIndex; ++j) {
     //             if (strcmp(cPointers[j], cPointers[j+1]) > 0) {
     //                 swap(cPointers[j], cPointers[j+1]);
     //             }
     //         }
-    //         for (int k = 0; k < strIndex + 1; k++) {
+    //         for (int k = 0; k < strIndex + 1; ++k) {
     //             for (int s = 0; s < M; s++) {
     //                 cout << *(cPointers[k] + s);
     //             }
@@ -539,7 +539,7 @@ int main()
         //     sizes[nIndex] = size;
 
         //     buffer[nIndex] = new char[size]{};
-        //     for (int j = 0; j < size; j++) buffer[nIndex][j] = str[j];
+        //     for (int j = 0; j < size; ++j) buffer[nIndex][j] = str[j];
 
                                     
         //     if (buffer[nIndex][0] == STOP_STRING) {
@@ -555,8 +555,8 @@ int main()
         //  * возрастания кода первого символа.
         //  */
 
-        // for (int i = 0; i < strIndex; i++) {
-        //     for (int j = 0; j < strIndex; j++) {
+        // for (int i = 0; i < strIndex; ++i) {
+        //     for (int j = 0; j < strIndex; ++j) {
         //         if (strcmp(pointers[j], pointers[j+1]) > 0) {
         //             swap(pointers[j], pointers[j+1]);
         //             swap(sizes[j], sizes[j+1]);
@@ -564,7 +564,7 @@ int main()
         //     }
         // }
 
-        // for (int k = 0; k < strIndex + 1; k++) {
+        // for (int k = 0; k < strIndex + 1; ++k) {
         //     for (int s = 0; s < sizes[k]; s++) {
         //         cout << *(pointers[k] + s);
         //     }
@@ -577,7 +577,7 @@ int main()
         // delete[] buffer;
         // buffer = nullptr;
 
-        // for (int i = 0; i < nStringNumber; i++) {
+        // for (int i = 0; i < nStringNumber; ++i) {
         //     delete buffer[i];
         //     buffer[i] = nullptr;
         // }
@@ -621,130 +621,130 @@ int main()
      */
   
     {
-        // const int SPACE = 32;
-        // const int LINE_WIDTH = 40;
+        const int SPACE = 32;
+        const int LINE_WIDTH = 40;
 
-        // string text;
-        // getline(cin,text);
-        // int size = text.size();
+        string text;
+        getline(cin,text);
+        int size = text.size();
 
-        // int* spaces = new int[size];
-        // int countSpaces = 0;
-        // int iSpases = 0;
+        int* spaces = new int[size];
+        int countSpaces = 0;
+        int iSpases = 0;
 
-        // char** worlds = { new char*[size]{} };
-        // for (int i = 0; i < size; i++) {
-        //     worlds[i] = new char[size]{};
-        // }
+        char** worlds = { new char*[size]{} };
+        for (int i = 0; i < size; ++i) {
+            worlds[i] = new char[size]{};
+        }
 
-        // int l = 0;
-        // int wSize = 0;
-        // int wCounter = 0;
-        // for (int r = 0; r < size; r++) {
-        //     if (text[r] != SPACE) {
-        //         wSize++;
-        //         worlds[wCounter][wSize - 1] = text[r];
-        //     } else {
-        //         while (l != r) {
-        //             if (text[l] == SPACE) spaces[wCounter]++;
-        //             l++;
-        //         }
-        //         wCounter++;
-        //         wSize = 0;
-        //     }
-        // }
+        int l = 0;
+        int wSize = 0;
+        int wCounter = 0;
+        for (int r = 0; r < size; ++r) {
+            if (text[r] != SPACE) {
+                wSize++;
+                worlds[wCounter][wSize - 1] = text[r];
+            } else {
+                while (l != r) {
+                    if (text[l] == SPACE) ++spaces[wCounter];
+                    l++;
+                }
+                wCounter++;
+                wSize = 0;
+            }
+        }
         
-        // spaces[wCounter] = 1;
-        // int numLines = size;
+        spaces[wCounter] = 1;
+        int numLines = size;
 
-        // char** lines = { new char*[numLines]{} };
-        // for (int i = 0; i < numLines; i++) {
-        //     lines[i] = new char[LINE_WIDTH]{};
-        // }
+        char** lines = { new char*[numLines]{} };
+        for (int i = 0; i < numLines; ++i) {
+            lines[i] = new char[LINE_WIDTH]{};
+        }
 
-        // int currentLineLengh = 0;
-        // int line = 0;
+        int currentLineLengh = 0;
+        int line = 0;
 
-        // for (int i = 0; i < wCounter + 1; i++) {
-        //     int worldSize = strlen(worlds[i]);
-        //     int spacesCount  = spaces[i];
+        for (int i = 0; i < wCounter + 1; ++i) {
+            int worldSize = strlen(worlds[i]);
+            int spacesCount  = spaces[i];
 
-        //     if (spacesCount) {
-        //         lines[line][currentLineLengh] = ' ';
-        //         currentLineLengh++;
-        //     }
+            if (spacesCount) {
+                lines[line][currentLineLengh] = ' ';
+                currentLineLengh++;
+            }
 
-        //     if (worldSize + currentLineLengh > LINE_WIDTH && worldSize <= LINE_WIDTH) {
-        //         line++;
-        //         currentLineLengh = 0;
-        //     }
+            if (worldSize + currentLineLengh > LINE_WIDTH && worldSize <= LINE_WIDTH) {
+                line++;
+                currentLineLengh = 0;
+            }
 
-        //     int k = 0;
-        //     for (int j = 0; j < worldSize; j++) {
-        //         if (currentLineLengh + k == LINE_WIDTH) {
-        //             line++;
-        //             currentLineLengh = 0;
-        //             k = 0;
-        //         }  
-        //         lines[line][currentLineLengh + k] = worlds[i][j];
-        //         k++;
-        //     }
-        //     currentLineLengh += k;
-        // }
+            int k = 0;
+            for (int j = 0; j < worldSize; ++j) {
+                if (currentLineLengh + k == LINE_WIDTH) {
+                    line++;
+                    currentLineLengh = 0;
+                    k = 0;
+                }  
+                lines[line][currentLineLengh + k] = worlds[i][j];
+                ++k;
+            }
+            currentLineLengh += k;
+        }
 
-        // for (int i = 0; i < size; i++) {
-        //     if (lines[i][0] == 0) {
-        //         numLines = i;
-        //         break;
-        //     }
-        // }
+        for (int i = 0; i < size; ++i) {
+            if (lines[i][0] == 0) {
+                numLines = i;
+                break;
+            }
+        }
 
-        // cout << ' ';
-        // for (int i = 0; i < LINE_WIDTH + 2; i++) cout << '-';
-        // cout << endl;
-        // for (int i = 0; i < numLines; i++) {
-        //     if (i == 0 && numLines != 1) cout << "/ ";
-        //     else if (i > 0 && i < numLines - 1 || numLines == 1) cout << "| ";
-        //     else cout << "\\ ";
+        cout << ' ';
+        for (int i = 0; i < LINE_WIDTH + 2; ++i) cout << '-';
+        cout << endl;
+        for (int i = 0; i < numLines; ++i) {
+            if (i == 0 && numLines != 1) cout << "/ ";
+            else if (i > 0 && i < numLines - 1 || numLines == 1) cout << "| ";
+            else cout << "\\ ";
 
-        //     for (int j = 0; j < LINE_WIDTH; j++) (lines[i][j] != 0) ? cout << lines[i][j] : cout << ' ';
+            for (int j = 0; j < LINE_WIDTH; ++j) (lines[i][j] != 0) ? cout << lines[i][j] : cout << ' ';
 
-        //     if (i == 0 && numLines != 1) cout << " \\";
-        //     else if (i > 0 && i < numLines - 1 || numLines == 1) cout << " |";
-        //     else cout << " /";
+            if (i == 0 && numLines != 1) cout << " \\";
+            else if (i > 0 && i < numLines - 1 || numLines == 1) cout << " |";
+            else cout << " /";
 
-        //     cout << endl;
-        // }
-        // cout << ' ';
-        // for (int i = 0; i < LINE_WIDTH + 2; i++) cout << '-';
-        // cout << endl;
-        // cout << "     \\" << endl;
-        // cout << "      \\" << endl;
-        // cout << "        /\\_/\\  (" << endl;
-        // cout << "       ( ^.^ ) _)" << endl;
-        // cout << "         \"/  (" << endl;
-        // cout << "       ( | | )" << endl;
-        // cout << "      (__d b__)" << endl;
+            cout << endl;
+        }
+        cout << ' ';
+        for (int i = 0; i < LINE_WIDTH + 2; ++i) cout << '-';
+        cout << endl;
+        cout << "     \\" << endl;
+        cout << "      \\" << endl;
+        cout << "        /\\_/\\  (" << endl;
+        cout << "       ( ^.^ ) _)" << endl;
+        cout << "         \"/  (" << endl;
+        cout << "       ( | | )" << endl;
+        cout << "      (__d b__)" << endl;
 
 
-        // delete[] spaces;
-        // spaces = nullptr;
+        delete[] spaces;
+        spaces = nullptr;
 
-        // for (int i = 0; i < size; i++) {
-        //     delete[] worlds[i];
-        //     worlds[i] = nullptr;
-        // }
+        for (int i = 0; i < size; ++i) {
+            delete[] worlds[i];
+            worlds[i] = nullptr;
+        }
 
-        // delete[] worlds;
-        // worlds = nullptr;
+        delete[] worlds;
+        worlds = nullptr;
 
-        // for (int i = 0; i < size; i++) {
-        //     delete[] lines[i];
-        //     lines[i] = nullptr;
-        // }
+        for (int i = 0; i < size; ++i) {
+            delete[] lines[i];
+            lines[i] = nullptr;
+        }
         
-        // delete[] lines;
-        // lines = nullptr;
+        delete[] lines;
+        lines = nullptr;
     }
 
 
@@ -784,9 +784,9 @@ int main()
     {
 
         double dArray[4][3][3];
-        for (int i = 0; i < 4; i++) {
-            for (int j = 0; j < 3; j++) {
-                for (int k = 0; k < 3; k++) {
+        for (int i = 0; i < 4; ++i) {
+            for (int j = 0; j < 3; ++j) {
+                for (int k = 0; k < 3; ++k) {
                     dArray[i][j][k] = i + 1;
                 }
             }
@@ -806,16 +806,16 @@ int main()
             /** переставляем местами элементы i-того и i+1-ого слоев */
 
             
-            for (int j = 0; j < 3; j++) {
-                for (int k = 0; k < 3; k++) {
+            for (int j = 0; j < 3; ++j) {
+                for (int k = 0; k < 3; ++k) {
                     swap(ptr[j][k], ptrNext[j][k]);
                 }
             }
         }
 
-        // for (int i = 0; i < 4; i++) {
-        //     for (int j = 0; j < 3; j++) {
-        //         for (int k = 0; k < 3; k++) {
+        // for (int i = 0; i < 4; ++i) {
+        //     for (int j = 0; j < 3; ++j) {
+        //         for (int k = 0; k < 3; ++k) {
         //             cout << dArray[i][j][k] << ' ';
         //         }
         //         cout << endl;
@@ -857,25 +857,25 @@ int main()
 
         srand(time(NULL));
 
-        for (int i = 0; i < ROWS; i++) {
-            for (int j = 0; j < COLUMS; j++) {
+        for (int i = 0; i < ROWS; ++i) {
+            for (int j = 0; j < COLUMS; ++j) {
                 arr[i][j] = arrValues[rand() % 2];
             }
         }
 
-        for (int i = 0; i < ROWS; i++) {
+        for (int i = 0; i < ROWS; ++i) {
             int numStar = 0;
 
-            for (int j = 0; j < COLUMS; j++) if (arr[i][j] == '*') numStar++;
+            for (int j = 0; j < COLUMS; ++j) if (arr[i][j] == '*') numStar++;
 
-            for (int j = 0; j < COLUMS; j++) { 
+            for (int j = 0; j < COLUMS; ++j) { 
                 arr[i][j] = (numStar > 0) ? '*' : '_';
                 numStar--;
             } 
          }
 
-        // for (int i = 0; i < ROWS; i++) {
-        //     for (int j = 0; j < COLUMS; j++) {
+        // for (int i = 0; i < ROWS; ++i) {
+        //     for (int j = 0; j < COLUMS; ++j) {
         //         cout << arr[i][j] << ' ';
         //     }
         //     cout << endl;
@@ -899,25 +899,25 @@ int main()
 
         srand(time(NULL));
 
-        for (int i = 0; i < ROWS; i++) {
-            for (int j = 0; j < COLUMS; j++) {
+        for (int i = 0; i < ROWS; ++i) {
+            for (int j = 0; j < COLUMS; ++j) {
                 arr[i][j] = arrValues[rand() % 2];
             }
         }
 
-        for (int j = 0; j < COLUMS; j++) {
+        for (int j = 0; j < COLUMS; ++j) {
             int numStarsInColumns = 0;
 
-            for (int i = 0; i < ROWS; i++) if (arr[i][j] == '*') numStarsInColumns++;
+            for (int i = 0; i < ROWS; ++i) if (arr[i][j] == '*') numStarsInColumns++;
 
-            for (int i = 0; i < ROWS; i++) { 
+            for (int i = 0; i < ROWS; ++i) { 
                 arr[i][j] = (numStarsInColumns > 0) ? '_' : '*';
                 numStarsInColumns--;
             } 
         }
 
-        // for (int i = 0; i < ROWS; i++) {
-        //     for (int j = 0; j < COLUMS; j++) {
+        // for (int i = 0; i < ROWS; ++i) {
+        //     for (int j = 0; j < COLUMS; ++j) {
         //         cout << arr[i][j] << ' ';
         //     }
         //     cout << endl;

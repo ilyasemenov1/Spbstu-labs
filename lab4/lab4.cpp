@@ -3,6 +3,7 @@
  * параметров. Возвращение значения.
  */
 #include <cstdlib>
+#include <cstring>
 #include <iostream>
 //#include <cstdio>
 //#include <cstdarg>
@@ -368,6 +369,13 @@ int main()
      * изначальными.
      */
 
+    {
+        char* encoded = encodeString("Hello!");
+        char* decoded1 = decodeString(encoded);
+
+        delete[] encoded;
+        delete[] decoded1;
+    }
     /**
      * Задание 8. Функции и макросы с переменным числом параметров.
      */
