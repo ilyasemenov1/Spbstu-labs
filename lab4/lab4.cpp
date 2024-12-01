@@ -5,12 +5,14 @@
 #include <cstdlib>
 #include <cstring>
 #include <iostream>
-//#include <cstdio>
-//#include <cstdarg>
+#include <cstdio>
+#include <cstdarg>
 
 #include "other.h"
 
 using namespace std;
+
+#define VAR_ARGS(...) var_args(__VA_ARGS__, 0)
 
 int main()
 {
@@ -82,9 +84,9 @@ int main()
          */
         int val = 1;
 
-        val = incByValue(val);
-        val = incByPointer(&val);
-        val = incByReference(val);
+        val = inc_by_value(val);
+        val = inc_by_pointer(&val);
+        val = inc_by_reference(val);
     }
 
     /**
@@ -107,14 +109,14 @@ int main()
         /** поменяли местами значения nX и nY с помощью указателей на nX и nY */
         // swap(...  ,  ...);
 
-        swapPtr(&nX, &nY);
+        swap_ptr(&nX, &nY);
 
         // cout << nX << ' ' << nY << endl;
 
         /** а теперь обратно с помощью ссылок на nX и nY */
         // swap(...  ,  ...);
 
-        swapRef(nX, nY);
+        swap_ref(nX, nY);
 
         // cout << nX << ' ' << nY << endl;
     }
@@ -142,21 +144,21 @@ int main()
 
         int arr[5] = {1,6,3,8,9};
 
-        int arrTwoD[3][5];
+        int arr_two_d[3][5];
         for (int i = 0; i < 3; i++) {
             for (int j = 0; j < 5; j++) {
-                arrTwoD[i][j] = rand() % 100 + 1;
+                arr_two_d[i][j] = rand() % 100 + 1;
             }
         }
 
-        int min = minInArray(arr, 5);
+        int min = min_in_array(arr, 5);
 
         /** 
          * Покажите, как можно использовать эту функцию для встроенных
          * двумерных массивов.
          */
 
-        int min2 = minIn2DArray((int*) arrTwoD, 3, 5);
+        int min2 = min_in_2d_array((int*) arr_two_d, 3, 5);
     }
 
     /**
@@ -181,7 +183,7 @@ int main()
 
         /** Вызовите функцию сравнения */
         
-        int res = myStrCmp(string1, string2);
+        int res = my_str_cmp(string1, string2);
 
         /** Выведите результат сравнения с помощью cout */
 
@@ -254,7 +256,7 @@ int main()
          * параметров передавать данные приведенного ниже двухмерного массива
          * nDayTab.
          */
-        int nDayTab[2][12] = {
+        int n_day_tab[2][12] = {
             {31,28,31,30,31,30,31,31,30,31,30,31}, //невисокосный год
             {31,29,31,30,31,30,31,31,30,31,30,31}};  //високосный год
 
@@ -264,10 +266,10 @@ int main()
 
         /** Проверка результата обратной функцией DayOfMonth */
 
-        int* monthData = dayOfMonth(200, 2024, (int*) nDayTab);
+        int* month_sata = day_of_month(200, 2024, (int*) n_day_tab);
         // cout << monthData[0] << ' ' << monthData[1] << endl;
 
-        delete[] monthData;
+        delete[] month_sata;
     }
 
     /**
@@ -294,11 +296,11 @@ int main()
         }
 
         for (int i = 0; i < 100; ++i) {
-            int newValue;
-            newValue = rand(); // случайное значение
-            newValue = newValue % 10;
+            int new_value;
+            new_value = rand(); // случайное значение
+            new_value = new_value % 10;
             /** вызов функции добавления в массив */
-            addUnique(arr, i, n, newValue);  
+            add_unique(arr, i, n, new_value);  
         }
         
         /** печать массива на экран */
@@ -370,11 +372,13 @@ int main()
      */
 
     {
-        char* encoded = encodeString("Hello!");
-        char* decoded1 = decodeString(encoded);
+        // char* encoded = encodeString("Hello!");
+        // char* decoded1 = decodeString(encoded);
+        // char* decoded2 = decodeString("88888");
 
-        delete[] encoded;
-        delete[] decoded1;
+        // delete[] encoded;
+        // delete[] decoded1;
+        // delete[] decoded2;
     }
     /**
      * Задание 8. Функции и макросы с переменным числом параметров.
@@ -421,6 +425,11 @@ int main()
      *
      * `*my_min(параметры) = 0;`
      */
+
+    {
+        int arr[3] = {1,2,3};
+        *my_min(arr, 3) = 0;
+    }
 
     return 0;
 }
