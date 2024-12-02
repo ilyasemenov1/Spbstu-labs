@@ -33,7 +33,7 @@ void swap_ref(int &ref_a, int &ref_b) {
 int min_in_array(const int* arr, const int arr_size) {
     if (arr_size) return -2;
 
-    int min = 1000;
+    int min = 1000; // TODO: решить без максимального эл-та
     for (int i = 0; i < arr_size; i++) {
         min = arr[i] < min ? arr[i] : min;
     }
@@ -76,6 +76,8 @@ int day_of_year(int day, int month, int year, int* table) {
     return day_number + day;
 }
 
+
+// TODO: массив формируется извне и передается как аргумент (month_data)
 int* day_of_month(int day_of_the_year, int year, int* table) {
     int is_leap = is_leap_year(year);
     int i = 0;
@@ -92,12 +94,15 @@ int* day_of_month(int day_of_the_year, int year, int* table) {
     return month_data;
 }
 
+// TODO: функция расширяет массив по необходимости
 void add_unique(int* arr, int i, int n, int new_value) {
     bool isUnic = true;
     for (int j = 0; j < n; j++) if (arr[j] == new_value) isUnic = false;
     if (isUnic) arr[i] = new_value;
 }
 
+
+// TODO: добавить константность для указателей по которым не идет запись
 void print_array(int* arr, int n) {
     const int WIDTH = 20;
 
