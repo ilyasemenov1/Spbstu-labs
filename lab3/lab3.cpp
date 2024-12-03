@@ -320,6 +320,8 @@ int main()
         //     cin >> arr[i];
 
         //     int* arrSort = new int[N]; 
+                // TODO: проходить по действительно введенным числам
+                // TODO: сделать, чтобы цикл ввода занимал N^2 (а не N^3 как сейчас)
 
         //     for (int j = 0; j < N; ++j) arrSort[j] = arr[j];
 
@@ -452,7 +454,8 @@ int main()
     //         cin >> cBuffer[nIndex];
                                     
     //         /** если введена строка - признак окончания, то выйти из цикла */
-
+                // TODO: тут выход будет по любой строке, которая начинается со *
+                // сделать выход только по строке "*" 
     //         if (cBuffer[nIndex][0] == STOP_STRING) {
     //             strIndex = nIndex - 1;
     //             break;
@@ -532,7 +535,7 @@ int main()
 
         // for (int nIndex = 0; nIndex < nStringNumber; nIndex++) {
 
-        //     string str;
+        //     string str; // TODO: решить это без использовать std::string, std::vector и пр
         //     cin >> str;
 
         //     int size = str.size();
@@ -621,130 +624,130 @@ int main()
      */
   
     {
-        const int SPACE = 32;
-        const int LINE_WIDTH = 40;
+        // const int SPACE = 32;
+        // const int LINE_WIDTH = 40;
 
-        string text;
-        getline(cin,text);
-        int size = text.size();
+        // string text;
+        // getline(cin,text);
+        // int size = text.size();
 
-        int* spaces = new int[size];
-        int countSpaces = 0;
-        int iSpases = 0;
+        // int* spaces = new int[size];
+        // int countSpaces = 0;
+        // int iSpases = 0;
 
-        char** worlds = { new char*[size]{} };
-        for (int i = 0; i < size; ++i) {
-            worlds[i] = new char[size]{};
-        }
+        // char** worlds = { new char*[size]{} };
+        // for (int i = 0; i < size; ++i) {
+        //     worlds[i] = new char[size]{};
+        // }
 
-        int l = 0;
-        int wSize = 0;
-        int wCounter = 0;
-        for (int r = 0; r < size; ++r) {
-            if (text[r] != SPACE) {
-                wSize++;
-                worlds[wCounter][wSize - 1] = text[r];
-            } else {
-                while (l != r) {
-                    if (text[l] == SPACE) ++spaces[wCounter];
-                    l++;
-                }
-                wCounter++;
-                wSize = 0;
-            }
-        }
+        // int l = 0;
+        // int wSize = 0;
+        // int wCounter = 0;
+        // for (int r = 0; r < size; ++r) {
+        //     if (text[r] != SPACE) {
+        //         wSize++;
+        //         worlds[wCounter][wSize - 1] = text[r];
+        //     } else {
+        //         while (l != r) {
+        //             if (text[l] == SPACE) ++spaces[wCounter];
+        //             l++;
+        //         }
+        //         wCounter++;
+        //         wSize = 0;
+        //     }
+        // }
         
-        spaces[wCounter] = 1;
-        int numLines = size;
+        // spaces[wCounter] = 1;
+        // int numLines = size;
 
-        char** lines = { new char*[numLines]{} };
-        for (int i = 0; i < numLines; ++i) {
-            lines[i] = new char[LINE_WIDTH]{};
-        }
+        // char** lines = { new char*[numLines]{} };
+        // for (int i = 0; i < numLines; ++i) {
+        //     lines[i] = new char[LINE_WIDTH]{};
+        // }
 
-        int currentLineLengh = 0;
-        int line = 0;
+        // int currentLineLengh = 0;
+        // int line = 0;
 
-        for (int i = 0; i < wCounter + 1; ++i) {
-            int worldSize = strlen(worlds[i]);
-            int spacesCount  = spaces[i];
+        // for (int i = 0; i < wCounter + 1; ++i) {
+        //     int worldSize = strlen(worlds[i]);
+        //     int spacesCount  = spaces[i];
 
-            if (spacesCount) {
-                lines[line][currentLineLengh] = ' ';
-                currentLineLengh++;
-            }
+        //     if (spacesCount) {
+        //         lines[line][currentLineLengh] = ' ';
+        //         currentLineLengh++;
+        //     }
 
-            if (worldSize + currentLineLengh > LINE_WIDTH && worldSize <= LINE_WIDTH) {
-                line++;
-                currentLineLengh = 0;
-            }
+        //     if (worldSize + currentLineLengh > LINE_WIDTH && worldSize <= LINE_WIDTH) {
+        //         line++;
+        //         currentLineLengh = 0;
+        //     }
 
-            int k = 0;
-            for (int j = 0; j < worldSize; ++j) {
-                if (currentLineLengh + k == LINE_WIDTH) {
-                    line++;
-                    currentLineLengh = 0;
-                    k = 0;
-                }  
-                lines[line][currentLineLengh + k] = worlds[i][j];
-                ++k;
-            }
-            currentLineLengh += k;
-        }
+        //     int k = 0;
+        //     for (int j = 0; j < worldSize; ++j) {
+        //         if (currentLineLengh + k == LINE_WIDTH) {
+        //             line++;
+        //             currentLineLengh = 0;
+        //             k = 0;
+        //         }  
+        //         lines[line][currentLineLengh + k] = worlds[i][j];
+        //         ++k;
+        //     }
+        //     currentLineLengh += k;
+        // }
 
-        for (int i = 0; i < size; ++i) {
-            if (lines[i][0] == 0) {
-                numLines = i;
-                break;
-            }
-        }
+        // for (int i = 0; i < size; ++i) {
+        //     if (lines[i][0] == 0) {
+        //         numLines = i;
+        //         break;
+        //     }
+        // }
 
-        cout << ' ';
-        for (int i = 0; i < LINE_WIDTH + 2; ++i) cout << '-';
-        cout << endl;
-        for (int i = 0; i < numLines; ++i) {
-            if (i == 0 && numLines != 1) cout << "/ ";
-            else if (i > 0 && i < numLines - 1 || numLines == 1) cout << "| ";
-            else cout << "\\ ";
+        // cout << ' ';
+        // for (int i = 0; i < LINE_WIDTH + 2; ++i) cout << '-';
+        // cout << endl;
+        // for (int i = 0; i < numLines; ++i) {
+        //     if (i == 0 && numLines != 1) cout << "/ ";
+        //     else if (i > 0 && i < numLines - 1 || numLines == 1) cout << "| ";
+        //     else cout << "\\ ";
 
-            for (int j = 0; j < LINE_WIDTH; ++j) (lines[i][j] != 0) ? cout << lines[i][j] : cout << ' ';
+        //     for (int j = 0; j < LINE_WIDTH; ++j) (lines[i][j] != 0) ? cout << lines[i][j] : cout << ' ';
 
-            if (i == 0 && numLines != 1) cout << " \\";
-            else if (i > 0 && i < numLines - 1 || numLines == 1) cout << " |";
-            else cout << " /";
+        //     if (i == 0 && numLines != 1) cout << " \\";
+        //     else if (i > 0 && i < numLines - 1 || numLines == 1) cout << " |";
+        //     else cout << " /";
 
-            cout << endl;
-        }
-        cout << ' ';
-        for (int i = 0; i < LINE_WIDTH + 2; ++i) cout << '-';
-        cout << endl;
-        cout << "     \\" << endl;
-        cout << "      \\" << endl;
-        cout << "        /\\_/\\  (" << endl;
-        cout << "       ( ^.^ ) _)" << endl;
-        cout << "         \"/  (" << endl;
-        cout << "       ( | | )" << endl;
-        cout << "      (__d b__)" << endl;
+        //     cout << endl;
+        // }
+        // cout << ' ';
+        // for (int i = 0; i < LINE_WIDTH + 2; ++i) cout << '-';
+        // cout << endl;
+        // cout << "     \\" << endl;
+        // cout << "      \\" << endl;
+        // cout << "        /\\_/\\  (" << endl;
+        // cout << "       ( ^.^ ) _)" << endl;
+        // cout << "         \"/  (" << endl;
+        // cout << "       ( | | )" << endl;
+        // cout << "      (__d b__)" << endl;
 
 
-        delete[] spaces;
-        spaces = nullptr;
+        // delete[] spaces;
+        // spaces = nullptr;
 
-        for (int i = 0; i < size; ++i) {
-            delete[] worlds[i];
-            worlds[i] = nullptr;
-        }
+        // for (int i = 0; i < size; ++i) {
+        //     delete[] worlds[i];
+        //     worlds[i] = nullptr;
+        // }
 
-        delete[] worlds;
-        worlds = nullptr;
+        // delete[] worlds;
+        // worlds = nullptr;
 
-        for (int i = 0; i < size; ++i) {
-            delete[] lines[i];
-            lines[i] = nullptr;
-        }
+        // for (int i = 0; i < size; ++i) {
+        //     delete[] lines[i];
+        //     lines[i] = nullptr;
+        // }
         
-        delete[] lines;
-        lines = nullptr;
+        // delete[] lines;
+        // lines = nullptr;
     }
 
 

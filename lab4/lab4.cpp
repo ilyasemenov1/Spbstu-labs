@@ -85,6 +85,7 @@ int main()
         int val = 1;
 
         val = inc_by_value(val);
+        // TODO: скорее имелось в виду (void) inc_by_pointer(&val)
         val = inc_by_pointer(&val);
         val = inc_by_reference(val);
     }
