@@ -10,12 +10,12 @@ int inc_by_value(int number) {
     return number + 1;
 }
 
-int inc_by_pointer(int* number) {
-    return (*number) + 1;
+void inc_by_pointer(int* number) {
+    (*number)++;
 }
 
-int inc_by_reference(int &number) {
-    return number + 1;
+void inc_by_reference(int &number) {
+    number++;
 }
 
 void swap_ptr(int* ptr_a, int* ptr_b) {
@@ -31,12 +31,11 @@ void swap_ref(int &ref_a, int &ref_b) {
 }
 
 int min_in_array(const int* arr, const int arr_size) {
-    if (arr_size) return -2;
+    if (arr_size < 1) return -2;
 
-    int min = 1000; // TODO: решить без максимального эл-та
-    for (int i = 0; i < arr_size; i++) {
-        min = arr[i] < min ? arr[i] : min;
-    }
+    // // TODO: решить без максимального эл-та
+    int min = arr[0];
+    for (int i = 0; i < arr_size; ++i) if (arr[i] < min) min = arr[i];
 
     return min;
 }
@@ -44,13 +43,11 @@ int min_in_array(const int* arr, const int arr_size) {
 int min_in_2d_array(const int* arr, const int arr_rows, const int arr_colums) {
     if (arr_rows < 1 || arr_colums < 1) return -2;
 
-    int min = 1000;
-    for (int i = 0; i < arr_rows; i++) {
-        int min_low = min_in_array(arr + i * arr_colums,arr_colums );
-        min = min_low < min ? min_low : min;
-    }
+    int* arr_rows_min = new int[arr_rows]{};
 
-    return min;
+    for (int i = 0; i < arr_rows; i++) arr_rows_min[i] = min_in_array(arr + i * arr_colums,arr_colums );
+
+    return min_in_array(arr_rows_min, arr_rows);
 }
 
 int my_str_cmp(const char* str1, const char* str2) {
@@ -65,7 +62,7 @@ int my_str_cmp(const char* str1, const char* str2) {
     return (x > 0) - (x < 0);
 }
 
-bool is_leap_year(int year) { return (year % 4 == 0 && year % 100 != 0) || (year % 400 == 0); }
+int is_leap_year(int year) { return (year % 4 == 0 && year % 100 != 0) || (year % 400 == 0); }
 
 int day_of_year(int day, int month, int year, int* table) {
     int is_leap = is_leap_year(year);
@@ -77,33 +74,38 @@ int day_of_year(int day, int month, int year, int* table) {
 }
 
 
-// TODO: массив формируется извне и передается как аргумент (month_data)
-int* day_of_month(int day_of_the_year, int year, int* table) {
+// // TODO: массив формируется извне и передается как аргумент
+void day_of_month(int day_of_the_year, int year, const int* table, int* return_values) {
     int is_leap = is_leap_year(year);
     int i = 0;
 
-    while (day_of_the_year - *(table + i) >= 0) {
+    while (day_of_the_year - *(table + i + 12 * is_leap) > 0) {
         day_of_the_year -= *(table + i);
         i++;
     }
 
-    int* month_data = new int[2];
-    month_data[0] = day_of_the_year;
-    month_data[1] = i + 1;
-
-    return month_data;
+    return_values[0] = day_of_the_year;
+    return_values[1] = i + 1;
 }
 
 // TODO: функция расширяет массив по необходимости
-void add_unique(int* arr, int i, int n, int new_value) {
+void add_unique(int* arr, int* n, int new_value) {
     bool isUnic = true;
-    for (int j = 0; j < n; j++) if (arr[j] == new_value) isUnic = false;
-    if (isUnic) arr[i] = new_value;
+    for (int j = 0; j < *n; j++) if (arr[j] == new_value) isUnic = false;
+    if (isUnic) {
+        int* arr_new = new int[*n + 1];
+        for (int i = 0; i < *n; ++i) arr_new[i] = arr[i];
+        arr_new[*n] = new_value;
+        delete[] arr;
+        arr = arr_new;
+        (*n)++;
+    }
+
 }
 
 
-// TODO: добавить константность для указателей по которым не идет запись
-void print_array(int* arr, int n) {
+// // TODO: добавить константность для указателей по которым не идет запись
+void print_array(const int* arr, int n) {
     const int WIDTH = 20;
 
     for (int j = 0; j * WIDTH < n; j++) {
@@ -141,7 +143,7 @@ int decoded32_size(int encodeSize) {
     return (encodeSize * 5) / 8;
 }
 
-int encode32(char* raw_data, int raw_size, char* dst) {
+int encode32(const char* raw_data, int raw_size, char* dst) {
     if (!raw_data || raw_size <= 0 || !dst) return 1;
 
     int bit_line_buffer = 0;
@@ -168,7 +170,7 @@ int encode32(char* raw_data, int raw_size, char* dst) {
     return 0;
 }
 
-int decode32(char* encoded_data, int encoded_size, char* dst) {
+int decode32(const char* encoded_data, int encoded_size, char* dst) {
     if (!encoded_data || encoded_size <= 0 || !dst) return 1;
 
     generate_decode_table();
@@ -194,7 +196,7 @@ int decode32(char* encoded_data, int encoded_size, char* dst) {
     return 0;
 }
 
-char* encode_string(char* string) {
+char* encode_string(const char* string) {
     int raw_size = strlen(string);
     int encoded_size = encoded32_size(raw_size);
     
@@ -212,7 +214,7 @@ char* encode_string(char* string) {
     return encoded_strig;
 }
 
-char* decode_string(char* encoded_strig) {
+char* decode_string(const char* encoded_strig) {
     int decoded_size = decoded32_size(strlen(encoded_strig));
     char* decoded_string = new char[decoded_size];
 

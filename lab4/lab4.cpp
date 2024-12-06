@@ -85,9 +85,9 @@ int main()
         int val = 1;
 
         val = inc_by_value(val);
-        // TODO: скорее имелось в виду (void) inc_by_pointer(&val)
-        val = inc_by_pointer(&val);
-        val = inc_by_reference(val);
+        // // TODO: скорее имелось в виду (void) inc_by_pointer(&val)
+        inc_by_pointer(&val);
+        inc_by_reference(val);
     }
 
     /**
@@ -145,14 +145,13 @@ int main()
 
         int arr[5] = {1,6,3,8,9};
 
-        int arr_two_d[3][5];
-        for (int i = 0; i < 3; i++) {
-            for (int j = 0; j < 5; j++) {
-                arr_two_d[i][j] = rand() % 100 + 1;
-            }
-        }
+        int arr_two_d[3][5] = {
+            {2,2,3,5,6},
+            {88,81,23,55,76},
+            {898,819,293,559,769}
+        };
 
-        int min = min_in_array(arr, 5);
+        int min1 = min_in_array(arr, 5);
 
         /** 
          * Покажите, как можно использовать эту функцию для встроенных
@@ -160,6 +159,8 @@ int main()
          */
 
         int min2 = min_in_2d_array((int*) arr_two_d, 3, 5);
+
+        cout << min1 << ' ' << min2 << endl;
     }
 
     /**
@@ -267,8 +268,10 @@ int main()
 
         /** Проверка результата обратной функцией DayOfMonth */
 
-        int* month_data = day_of_month(200, 2024, (int*) n_day_tab);
-        // cout << monthData[0] << ' ' << monthData[1] << endl;
+        int* month_data = new int[2];
+
+        day_of_month(60, 2024, (int*) n_day_tab, month_data);
+        cout << month_data[0] << ' ' << month_data[1] << endl;
 
         delete[] month_data;
     }
@@ -301,11 +304,11 @@ int main()
             new_value = rand(); // случайное значение
             new_value = new_value % 10;
             /** вызов функции добавления в массив */
-            add_unique(arr, i, n, new_value);  
+            add_unique(arr, &n, new_value);  
         }
         
         /** печать массива на экран */
-        // printArray(arr, n);
+        print_array(arr, n);
 
         /**
          * Тут должно быть не более 10 + n элементов, так как во втором цикле
@@ -372,15 +375,26 @@ int main()
      * изначальными.
      */
 
-    {
-        // char* encoded = encodeString("Hello!");
-        // char* decoded1 = decodeString(encoded);
-        // char* decoded2 = decodeString("88888");
+    // {
+//         const char* text = "Sid Meier's Civilization V is a 4X turn-based \
+// strategy video game in the Civilization series developed by Firaxis Games. \
+// The game was released for Windows in September 2010,[1] for Mac OS X on November \
+// 23, 2010, and for Linux on June 10, 2014. \
+// In Civilization V, the player leads a civilization from prehistoric times into the future on a \
+// procedurally generated map, attempting to achieve one of a number of different victory conditions through \
+// research, exploration, diplomacy, expansion, economic development, government and military conquest. The game \
+// is based on an entirely new game engine with hexagonal tiles instead of the square tiles of earlier games in the series.[5] \
+// Many elements from Civilization IV and its expansion packs have been removed or changed, such as religion and \
+// espionage (although these were reintroduced in its subsequent expansions).";
 
-        // delete[] encoded;
-        // delete[] decoded1;
-        // delete[] decoded2;
-    }
+//         char* encoded = encode_string(text);
+//         char* decoded1 = decode_string(encoded);
+//         char* decoded2 = decode_string("88888");
+
+//         delete[] encoded;
+//         delete[] decoded1;
+//         delete[] decoded2;
+//     }
     /**
      * Задание 8. Функции и макросы с переменным числом параметров.
      */

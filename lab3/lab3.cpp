@@ -15,6 +15,29 @@
 
 using namespace std;
 
+char* readLine() {
+    int capacity = 10;
+    int length = 0;
+    char* buffer = new char[capacity] {};
+    char c;
+
+    while (cin.get(c)) {
+        if (c == '\n') break;
+
+        if (length >= capacity) {
+            capacity *= 2;
+            char* new_buffer = new char[capacity];
+            strcpy(new_buffer, buffer);
+            delete[] buffer;
+            buffer = new_buffer;
+        }
+
+        buffer[length++] = c;
+    }
+
+    return buffer;
+}
+
 int main()
 {
     /**
@@ -312,40 +335,41 @@ int main()
      * k*N^2, где k - некоторое число.
      */
 
-    {
-        // int N = min(rand() % 10 + 4, 7);
-        // int* arr = new int[N]{};
+    // {
+    //     int index;
 
-        // for (int i = 0; i < N; ++i) {
-        //     cin >> arr[i];
+    //     int N = min(rand() % 10 + 4, 7);
+    //     int* arr = new int[N]{};
 
-        //     int* arrSort = new int[N]; 
-                // TODO: проходить по действительно введенным числам
-                // TODO: сделать, чтобы цикл ввода занимал N^2 (а не N^3 как сейчас)
+    //     cin >> arr[0];
+    //     cout << arr[0] << endl;
 
-        //     for (int j = 0; j < N; ++j) arrSort[j] = arr[j];
+    //     for (int i = 1; i < N; ++i) {
+    //         cin >> arr[i];
 
-        //     int min = 0;
 
-        //     for (int j = 0; j < N; ++j) {
-        //         min = j;
-        //         for (int k = j + 1; k < N; ++k) min = (arrSort[k] < arrSort[min]) ? k : min;
+    //         // // TODO: проходить по действительно введенным числам
+    //         // // TODO: сделать, чтобы цикл ввода занимал N^2 (а не N^3 как сейчас)
+    //         if(arr[i] < arr[i - 1]){
+    //             for (int j = 0; j < i + 1; ++j){
+    //                 if (arr[j] > arr[i]){
+    //                     index = j;
+    //                     break;
+    //                 }
+    //             }
+    //             for (int j = index; j < i + 1; ++j) swap(arr[i], arr[j]);
 
-        //         if (j != min) swap(arrSort[j], arrSort[min]);
-        //     }
+    //         }
 
-        //     for (int j = 0; j < N; ++j) {
-        //         cout << ' ' << arrSort[j];
-        //     }
-        //     cout << endl;
+    //         for (int j = 0; j < i + 1; ++j) {
+    //             cout << arr[j] << ' ';
+    //         }
+    //         cout << endl;
+    //     }
 
-        //     delete[] arrSort;
-        //     arrSort = nullptr;
-        // }
-
-        // delete[] arr;
-        // arr = nullptr;
-    }
+    //     delete[] arr;
+    //     arr = nullptr;
+    // }
 
     /**
      * Задание 3.2. Простой поиск.
@@ -355,51 +379,53 @@ int main()
      * дубли игнорируются).
      */
 
-    {
-        // int N = min(rand() % 10 + 4, 7);
-        // int* arr = new int[N];
+    // {
+    //     int index;
 
-        // for (int j = 0; j < N; ++j) arr[j] = 0; 
+    //     int N = min(rand() % 10 + 4, 7);
+    //     int* arr = new int[N]{};
 
-        // for (int i = 0; i < N; ++i) {
-        //     int value;
-        //     cin >> value;
-        //     bool isUnic = true;
-        //     for (int j = 0; j < N; ++j) {
-        //         if (arr[j] == value) {
-        //             isUnic = false;
-        //             break;
-        //         }
-        //     } 
-        //     arr[i] = isUnic ? value : 0;
-        //     if (!isUnic) i--;
+    //     cin >> arr[0];
+    //     cout << arr[0] << endl;
 
-        //     int** arrSort = new int*[N]; 
+    //     for (int i = 1; i < N; ++i) {
+    //         int value;
+    //         cin >> value;
 
-        //     for (int j = 0; j < N; ++j) arrSort[j] = &arr[j];
+    //         bool isUnic = true;
+    //         for (int j = 0; j < i + 1; ++j) if (arr[j] == value) isUnic = false;
 
-        //     int min = 0;
-        //     int buf = 0;
+    //         if (isUnic) {
+    //             arr[i] = value;
 
-        //     for (int j = 0; j < N; ++j) {
-        //         min = j;
-        //         for (int k = j + 1; k < N; ++k) min = (*arrSort[k] < *arrSort[min]) ? k : min;
+    //             if(arr[i] < arr[i - 1]){
+    //                 for (int j = 0; j < i + 1; ++j) {
+    //                     if (arr[j] > arr[i]){
+    //                         index = j;
+    //                         break;
+    //                     }
+    //                 }
+    //                 for (int j = index; j < i + 1; ++j) swap(arr[i], arr[j]);
 
-        //         if (j != min) swap(arrSort[j], arrSort[min]);
-        //     }
+    //             }
 
-        //     for (int j = 0; j < N; ++j) {
-        //         cout << ' ' << *arrSort[j];
-        //     }
-        //     cout << endl;
+    //             for (int j = 0; j < i + 1; ++j) {
+    //                 cout << arr[j] << ' ';
+    //             }
+    //             cout << endl;
+    //         } else {
+    //             i--;
+    //             for (int j = 0; j < i + 1; ++j) {
+    //                 cout << arr[j] << ' ';
+    //             }
+    //             cout << endl;
+    //         }
 
-        //     delete[] arrSort;
-        //     arrSort = nullptr;
-        // }
+    //     }
 
-        // delete[] arr;
-        // arr = nullptr;
-    }
+    //     delete[] arr;
+    //     arr = nullptr;
+    // }
      
     /**
      * Задание 4. Сортировка строк.
@@ -454,9 +480,9 @@ int main()
     //         cin >> cBuffer[nIndex];
                                     
     //         /** если введена строка - признак окончания, то выйти из цикла */
-                // TODO: тут выход будет по любой строке, которая начинается со *
-                // сделать выход только по строке "*" 
-    //         if (cBuffer[nIndex][0] == STOP_STRING) {
+    //         // // TODO: тут выход будет по любой строке, которая начинается со *
+    //         // // сделать выход только по строке "*" 
+    //         if (*(cBuffer[nIndex]) == STOP_STRING && strlen(cBuffer[nIndex]) == 1) {
     //             strIndex = nIndex - 1;
     //             break;
     //         }
@@ -517,80 +543,76 @@ int main()
      * потока ввода.
      */
 
-    {
-        // int nStringNumber;
-        // cin >> nStringNumber;
+    // {
+    //     int nStringNumber;
+    //     cin >> nStringNumber;
+    //     // nStringNumber = 5;
+    //     nStringNumber++;
 
-        // const char STOP_STRING = '*';
+    //     const char STOP_STRING = '*';
 
-        // char** buffer = { new char*[nStringNumber]{} };
-        // char** pointers = new char*[nStringNumber];
-        // int* sizes = new int[nStringNumber];
+    //     char** buffer = { new char*[nStringNumber]{} };
+    //     int* sizes = new int[nStringNumber];
 
-        // int strIndex = nStringNumber - 1;
-        // int maxSize = 0;
+    //     int strIndex = nStringNumber - 1;
+    //     int maxSize = 0;
 
 
-        // /** Цикл ввода строк: */
+    //     /** Цикл ввода строк: */
 
-        // for (int nIndex = 0; nIndex < nStringNumber; nIndex++) {
+    //     for (int nIndex = 0; nIndex < nStringNumber; nIndex++) {
 
-        //     string str; // TODO: решить это без использовать std::string, std::vector и пр
-        //     cin >> str;
+    //         // // TODO: решить это без использовать std::string, std::vector и пр
+    //         char* str = readLine(); 
 
-        //     int size = str.size();
-        //     sizes[nIndex] = size;
+    //         int size = strlen(str);
+    //         sizes[nIndex] = size;
 
-        //     buffer[nIndex] = new char[size]{};
-        //     for (int j = 0; j < size; ++j) buffer[nIndex][j] = str[j];
-
+    //         buffer[nIndex] = new char[size]{};
+    //         for (int j = 0; j < size; ++j) buffer[nIndex][j] = str[j];
                                     
-        //     if (buffer[nIndex][0] == STOP_STRING) {
-        //         strIndex = nIndex - 1;
-        //         break;
-        //     }
+    //         if (*(buffer[nIndex]) == STOP_STRING && strlen(buffer[nIndex]) == 1) {
+    //             strIndex = nIndex - 1;
+    //             break;
+    //         }
 
-        //     pointers[nIndex] = buffer[nIndex]; 
-        // }
+    //         delete[] str;
+    //     }
 
-        // /** 
-        //  * Цикл сортировки строк по методу "всплывающего пузырька" в порядке
-        //  * возрастания кода первого символа.
-        //  */
+    //     /** 
+    //      * Цикл сортировки строк по методу "всплывающего пузырька" в порядке
+    //      * возрастания кода первого символа.
+    //      */
 
-        // for (int i = 0; i < strIndex; ++i) {
-        //     for (int j = 0; j < strIndex; ++j) {
-        //         if (strcmp(pointers[j], pointers[j+1]) > 0) {
-        //             swap(pointers[j], pointers[j+1]);
-        //             swap(sizes[j], sizes[j+1]);
-        //         }
-        //     }
-        // }
+    //     for (int i = 0; i < strIndex; ++i) {
+    //         for (int j = 0; j < strIndex; ++j) {
+    //             if (strcmp(buffer[j], buffer[j+1]) > 0) {
+    //                 swap(buffer[j], buffer[j+1]);
+    //                 swap(sizes[j], sizes[j+1]);
+    //             }
+    //         }
+    //     }
 
-        // for (int k = 0; k < strIndex + 1; ++k) {
-        //     for (int s = 0; s < sizes[k]; s++) {
-        //         cout << *(pointers[k] + s);
-        //     }
-        //     cout << endl;
-        // }
+    //     for (int k = 0; k < strIndex + 1; ++k) {
+    //         for (int s = 0; s < sizes[k]; ++s) {
+    //             cout << *(buffer[k] + s);
+    //         }
+    //         cout << endl;
+    //     }
 
-        // /** Освобождение занятой памяти */
+    //     /** Освобождение занятой памяти */
 
+    //     for (int i = 0; i < nStringNumber; ++i) {
+    //         delete buffer[i];
+    //         buffer[i] = nullptr;
+    //     }
 
-        // delete[] buffer;
-        // buffer = nullptr;
+    //     delete[] buffer;
+    //     buffer = nullptr;
 
-        // for (int i = 0; i < nStringNumber; ++i) {
-        //     delete buffer[i];
-        //     buffer[i] = nullptr;
-        // }
-
-        // delete[] pointers;
-        // pointers = nullptr;
-
-        // delete [] sizes;
-        // sizes = nullptr;
-    }
+    //     delete [] sizes;
+    //     sizes = nullptr;
+    // }
 
     /** 
      * Задание 6. Работа со строками.
@@ -624,130 +646,131 @@ int main()
      */
   
     {
-        // const int SPACE = 32;
-        // const int LINE_WIDTH = 40;
+        const int SPACE = 32;
+        const int LINE_WIDTH = 40;
 
-        // string text;
-        // getline(cin,text);
-        // int size = text.size();
+        char* text = readLine(); 
+        int size = strlen(text);
 
-        // int* spaces = new int[size];
-        // int countSpaces = 0;
-        // int iSpases = 0;
+        int* spaces = new int[size];
+        int countSpaces = 0;
+        int iSpases = 0;
 
-        // char** worlds = { new char*[size]{} };
-        // for (int i = 0; i < size; ++i) {
-        //     worlds[i] = new char[size]{};
-        // }
+        char** worlds = { new char*[size]{} };
+        for (int i = 0; i < size; ++i) {
+            worlds[i] = new char[size]{};
+        }
 
-        // int l = 0;
-        // int wSize = 0;
-        // int wCounter = 0;
-        // for (int r = 0; r < size; ++r) {
-        //     if (text[r] != SPACE) {
-        //         wSize++;
-        //         worlds[wCounter][wSize - 1] = text[r];
-        //     } else {
-        //         while (l != r) {
-        //             if (text[l] == SPACE) ++spaces[wCounter];
-        //             l++;
-        //         }
-        //         wCounter++;
-        //         wSize = 0;
-        //     }
-        // }
+        int l = 0;
+        int wSize = 0;
+        int wCounter = 0;
+        for (int r = 0; r < size; ++r) {
+            if (text[r] != SPACE) {
+                wSize++;
+                worlds[wCounter][wSize - 1] = text[r];
+            } else {
+                while (l != r) {
+                    if (text[l] == SPACE) ++spaces[wCounter];
+                    l++;
+                }
+                wCounter++;
+                wSize = 0;
+            }
+        }
         
-        // spaces[wCounter] = 1;
-        // int numLines = size;
+        spaces[wCounter] = 1;
+        int numLines = size;
 
-        // char** lines = { new char*[numLines]{} };
-        // for (int i = 0; i < numLines; ++i) {
-        //     lines[i] = new char[LINE_WIDTH]{};
-        // }
+        char** lines = { new char*[numLines]{} };
+        for (int i = 0; i < numLines; ++i) {
+            lines[i] = new char[LINE_WIDTH]{};
+        }
 
-        // int currentLineLengh = 0;
-        // int line = 0;
+        int currentLineLengh = 0;
+        int line = 0;
 
-        // for (int i = 0; i < wCounter + 1; ++i) {
-        //     int worldSize = strlen(worlds[i]);
-        //     int spacesCount  = spaces[i];
+        for (int i = 0; i < wCounter + 1; ++i) {
+            int worldSize = strlen(worlds[i]);
+            int spacesCount  = spaces[i];
 
-        //     if (spacesCount) {
-        //         lines[line][currentLineLengh] = ' ';
-        //         currentLineLengh++;
-        //     }
+            if (spacesCount) {
+                lines[line][currentLineLengh] = ' ';
+                currentLineLengh++;
+            }
 
-        //     if (worldSize + currentLineLengh > LINE_WIDTH && worldSize <= LINE_WIDTH) {
-        //         line++;
-        //         currentLineLengh = 0;
-        //     }
+            if (worldSize + currentLineLengh > LINE_WIDTH && worldSize <= LINE_WIDTH) {
+                line++;
+                currentLineLengh = 0;
+            }
 
-        //     int k = 0;
-        //     for (int j = 0; j < worldSize; ++j) {
-        //         if (currentLineLengh + k == LINE_WIDTH) {
-        //             line++;
-        //             currentLineLengh = 0;
-        //             k = 0;
-        //         }  
-        //         lines[line][currentLineLengh + k] = worlds[i][j];
-        //         ++k;
-        //     }
-        //     currentLineLengh += k;
-        // }
+            int k = 0;
+            for (int j = 0; j < worldSize; ++j) {
+                if (currentLineLengh + k == LINE_WIDTH) {
+                    line++;
+                    currentLineLengh = 0;
+                    k = 0;
+                }  
+                lines[line][currentLineLengh + k] = worlds[i][j];
+                ++k;
+            }
+            currentLineLengh += k;
+        }
 
-        // for (int i = 0; i < size; ++i) {
-        //     if (lines[i][0] == 0) {
-        //         numLines = i;
-        //         break;
-        //     }
-        // }
+        for (int i = 0; i < size; ++i) {
+            if (lines[i][0] == 0) {
+                numLines = i;
+                break;
+            }
+        }
 
-        // cout << ' ';
-        // for (int i = 0; i < LINE_WIDTH + 2; ++i) cout << '-';
-        // cout << endl;
-        // for (int i = 0; i < numLines; ++i) {
-        //     if (i == 0 && numLines != 1) cout << "/ ";
-        //     else if (i > 0 && i < numLines - 1 || numLines == 1) cout << "| ";
-        //     else cout << "\\ ";
+        cout << ' ';
+        for (int i = 0; i < LINE_WIDTH + 2; ++i) cout << '-';
+        cout << endl;
+        for (int i = 0; i < numLines; ++i) {
+            if (i == 0 && numLines != 1) cout << "/ ";
+            else if (i > 0 && i < numLines - 1 || numLines == 1) cout << "| ";
+            else cout << "\\ ";
 
-        //     for (int j = 0; j < LINE_WIDTH; ++j) (lines[i][j] != 0) ? cout << lines[i][j] : cout << ' ';
+            for (int j = 0; j < LINE_WIDTH; ++j) (lines[i][j] != 0) ? cout << lines[i][j] : cout << ' ';
 
-        //     if (i == 0 && numLines != 1) cout << " \\";
-        //     else if (i > 0 && i < numLines - 1 || numLines == 1) cout << " |";
-        //     else cout << " /";
+            if (i == 0 && numLines != 1) cout << " \\";
+            else if (i > 0 && i < numLines - 1 || numLines == 1) cout << " |";
+            else cout << " /";
 
-        //     cout << endl;
-        // }
-        // cout << ' ';
-        // for (int i = 0; i < LINE_WIDTH + 2; ++i) cout << '-';
-        // cout << endl;
-        // cout << "     \\" << endl;
-        // cout << "      \\" << endl;
-        // cout << "        /\\_/\\  (" << endl;
-        // cout << "       ( ^.^ ) _)" << endl;
-        // cout << "         \"/  (" << endl;
-        // cout << "       ( | | )" << endl;
-        // cout << "      (__d b__)" << endl;
+            cout << endl;
+        }
+        cout << ' ';
+        for (int i = 0; i < LINE_WIDTH + 2; ++i) cout << '-';
+        cout << endl;
+        cout << "     \\" << endl;
+        cout << "      \\" << endl;
+        cout << "        /\\_/\\  (" << endl;
+        cout << "       ( ^.^ ) _)" << endl;
+        cout << "         \"/  (" << endl;
+        cout << "       ( | | )" << endl;
+        cout << "      (__d b__)" << endl;
 
 
-        // delete[] spaces;
-        // spaces = nullptr;
+        delete[] spaces;
+        spaces = nullptr;
 
-        // for (int i = 0; i < size; ++i) {
-        //     delete[] worlds[i];
-        //     worlds[i] = nullptr;
-        // }
+        for (int i = 0; i < size; ++i) {
+            delete[] worlds[i];
+            worlds[i] = nullptr;
+        }
 
-        // delete[] worlds;
-        // worlds = nullptr;
+        delete[] worlds;
+        worlds = nullptr;
 
-        // for (int i = 0; i < size; ++i) {
-        //     delete[] lines[i];
-        //     lines[i] = nullptr;
-        // }
+        for (int i = 0; i < size; ++i) {
+            delete[] lines[i];
+            lines[i] = nullptr;
+        }
         
-        // delete[] lines;
-        // lines = nullptr;
+        delete[] lines;
+        lines = nullptr;
+
+        delete[] text;
     }
 
 
