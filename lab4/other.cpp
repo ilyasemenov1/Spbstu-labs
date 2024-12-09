@@ -88,21 +88,25 @@ void day_of_month(int day_of_the_year, int year, const int* table, int* return_v
     return_values[1] = i + 1;
 }
 
-// TODO: функция расширяет массив по необходимости
-void add_unique(int* arr, int* n, int new_value) {
+void increase_arr(int* &a, int old_size, int new_size) {
+    int* new_a = new int[new_size];
+    memcpy(new_a, a, old_size * sizeof(int));
+    for (int i = old_size; i < new_size; ++i) new_a[i] = 0;
+    delete [] a;
+    a = new_a;
+}
+
+// // TODO: функция расширяет массив по необходимости
+void add_unique(int* &arr, int* n, int new_value) {
     bool isUnic = true;
     for (int j = 0; j < *n; j++) if (arr[j] == new_value) isUnic = false;
     if (isUnic) {
-        int* arr_new = new int[*n + 1];
-        for (int i = 0; i < *n; ++i) arr_new[i] = arr[i];
-        arr_new[*n] = new_value;
-        delete[] arr;
-        arr = arr_new;
+        increase_arr(arr, *n, (*n) + 1);
+        arr[*n] = new_value;
         (*n)++;
     }
 
 }
-
 
 // // TODO: добавить константность для указателей по которым не идет запись
 void print_array(const int* arr, int n) {

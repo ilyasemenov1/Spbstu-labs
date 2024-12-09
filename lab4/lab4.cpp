@@ -271,7 +271,7 @@ int main()
         int* month_data = new int[2];
 
         day_of_month(60, 2024, (int*) n_day_tab, month_data);
-        cout << month_data[0] << ' ' << month_data[1] << endl;
+        // cout << month_data[0] << ' ' << month_data[1] << endl;
 
         delete[] month_data;
     }
@@ -304,11 +304,11 @@ int main()
             new_value = rand(); // случайное значение
             new_value = new_value % 10;
             /** вызов функции добавления в массив */
-            add_unique(arr, &n, new_value);  
+            add_unique(arr, &n, new_value); 
         }
         
         /** печать массива на экран */
-        print_array(arr, n);
+        // print_array(arr, n);
 
         /**
          * Тут должно быть не более 10 + n элементов, так как во втором цикле

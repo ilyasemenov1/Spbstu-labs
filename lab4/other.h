@@ -9,7 +9,7 @@ int min_in_2d_array(const int* arr, const int arr_rows, const int arr_colums);
 int my_str_cmp(const char* str1, const char* str2);
 int day_of_year(int day, int month, int year, int* table);
 void day_of_month(int day_of_the_year, int year, const int* table, int* return_values);
-void add_unique(int* arr, int* n, int new_value);
+void add_unique(int* &arr, int* n, int new_value);
 void print_array(const int* arr, int n);
 int sumN(int n);
 int encoded32_size(int raw_size);

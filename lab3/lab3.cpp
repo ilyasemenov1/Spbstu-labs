@@ -771,6 +771,7 @@ int main()
         lines = nullptr;
 
         delete[] text;
+        text = nullptr;
     }
 
 
