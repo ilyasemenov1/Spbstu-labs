@@ -3,10 +3,15 @@
  * Указатели на функции. Структуры.
  */
 
+#include <cstdio>
 #include <iostream>
-//#include <cstdio>
+#include <cmath>
+#include <algorithm>
 #include "other.h"
+#include "book.h"
+#include "matrix.h"
 
+using namespace std;
 
 int main()
 {
@@ -23,8 +28,8 @@ int main()
      * С помощью функции scanf сформирйуте три коэффициента: A,B,C.
      */
 
-    int A, B, C;
-    // scan
+    // int A, B, C;
+    // scanf("%d %d %d", &A, &B, &C);
 
 
     /**
@@ -33,6 +38,19 @@ int main()
      * Выведите (красиво!) таблицу значений y=A*x*x + B*x + C при изменении x в
      * диапазоне -2 до +2 с шагом 0.5
      */
+    // const int NUMBER_OF_POINTS = 9;
+
+    // printf("-----------------------\n");
+    // printf("| x:      | y:        |\n");
+    // printf("-----------------------\n");
+
+    // for (int i = 0; i < NUMBER_OF_POINTS; ++i) {
+    //     double x = -2 + i * .5;
+    //     double y = A*x*x + B*x + C;
+    //     printf("| %4.1lf | %12.6lf |\n", x, y);
+    // }
+
+    // printf("-----------------------\n");
 
     /**
      * Задание 2. Указатели на функции.
@@ -64,6 +82,34 @@ int main()
      * - предусмотрите возможность ввода непредусмотренного знака операции.
      */
 
+    {
+        // double (*operations[5])(double, double) = {add, sub, mul, div, pow};
+        // char operations_ind[5] = {'+', '-', '*', '/', '^'};
+
+        // double x, y;
+        // char operation;
+
+
+        // while(1) {
+        //     cout << "Введите выражение: ";
+        //     cin >> x >> operation >> y;
+
+        //     int i = 0;
+        //     for (; i < 6; i++) {
+        //         if (i == 5) break;
+        //         if (operations_ind[i] == operation) break;
+        //     }
+
+        //     cout << operations[i](x,y) << endl;
+        //     char line_val;
+
+        //     cout << "Продолжать ввод [y\\n]? ";
+        //     cin >> line_val;
+        //     if (line_val == 'n' || line_val != 'y' && line_val != 'Y' && line_val != '\n') break;
+        //     cout << endl;
+        // }
+    }
+
     /**
      * Задание 2.2. Указатель на функцию в качестве аргумента.
      *
@@ -92,15 +138,18 @@ int main()
      * Используйте эти функции в функции сортировки.
      */
     {
-        // int nAr[]=...   //массив для сортировки
-        // int nTotal=...          //количество элементов в массиве 
+        // int nAr[]={7,1,4,8,2};   //массив для сортировки
+        // int nTotal=5;          //количество элементов в массиве 
 
-        /** Печать исходного массива */
+        // /** Печать исходного массива */
 
         // sort(reinterpret_cast<char*>(&nAr[0]), nTotal, sizeof(int), 
-        //      SwapInt, CmpInt);
+        //      swap_int, cmp_int);
 
-        /** Печать результатов сортировки */
+        // /** Печать результатов сортировки */
+
+        // for (int i = 0; i < nTotal; ++i) cout << ' ' << nAr[i];
+        // cout << endl;
     }
 
     /**
@@ -109,6 +158,21 @@ int main()
      * По аналогии с заданием 2.2.1 напишите функцию swap_double и cmp_double,
      * и вызовите функцию sort для сортировки вещественных значений.
      */
+
+    {
+        // double dAr[]={7.2,1.1,4.15,4.17,2.12};   //массив для сортировки
+        // int nTotal=5;          //количество элементов в массиве 
+
+        // /** Печать исходного массива */
+
+        // sort(reinterpret_cast<char*>(&dAr[0]), nTotal, sizeof(double), 
+        //      swap_double, cmp_double);
+
+        // /** Печать результатов сортировки */
+
+        // for (int i = 0; i < nTotal; ++i) cout << ' ' << nAr[i];
+        // cout << endl;
+    }
 
     /**
      * Задание 2.2.3.
@@ -119,7 +183,18 @@ int main()
      */
 
     {
-        const char* arStr[] = {"QQQ", "SDF", "ABC"};
+        // const char* arStr[] = {"QQQ", "SDF", "ABC"};
+        // int strTotal=3;          //количество элементов в массиве 
+
+        // /** Печать исходного массива */
+
+        // sort(reinterpret_cast<char*>(arStr), strTotal, sizeof(const char*), 
+        //      swap_str, cmp_str);
+
+        // /** Печать результатов сортировки */
+
+        // for (int i = 0; i < strTotal; ++i) cout << ' ' << arStr[i];
+        // cout << endl;
     }
 
     /**
@@ -141,6 +216,41 @@ int main()
      * после чего вызовите функцию для какого-нибудь массива.
      */
 
+    {
+        // int arr[] = {5, 2, 8, 1, 9, 4};
+        // int size = sizeof(arr) / sizeof(arr[0]);
+
+        // ArrayFunction functions[] = {print_max, print_min, sort_asc, sort_desc};
+        // const char* function_names[] = {
+        //     "Найти максимум",
+        //     "Найти минимум",
+        //     "Сортировать по возрастанию",
+        //     "Сортировать по убыванию"
+        // };
+
+        // int choice;
+        // do {
+        //     cout << "[0] Выход" << endl;
+        //     for (int i = 0; i < 4; ++i) {
+        //         cout << '[' << i + 1 << "] " << function_names[i] << endl;
+        //     }
+
+        //     cin >> choice;
+
+        //     if (choice >= 1 && choice <= 4) {
+        //         functions[choice - 1](arr, size);
+        //     } else if (cin.fail()) {
+        //         cout << "Некорректный ввод. Пожалуйста, введите число." << endl;
+        //         cin.clear();
+        //     }
+        //     else if (choice < 0 || choice > 4)
+        //     {
+        //         cout << "Некорректный ввод. Введите число от 0 до 4." << endl;
+        //     }
+
+        // } while (choice != 0);
+    }
+
     /**
      * Задание 2.4. Метод прямоугольников.
      *
@@ -157,6 +267,25 @@ int main()
      * Проверьте функцию на разных вещественных функциях (линейных, параболах,
      * exp, sin) и сравните полученные результаты с теоретическими.
      */
+
+    {
+        // double linear_integral = integrate(linear, 0.0, 5.0, 1000);
+        // cout << "Интеграл linear(x) от 0 до 5 (численный): " << linear_integral << endl;
+        // cout << "Интеграл linear(x) от 0 до 5 (теоретический): " << 42.5 << endl; 
+
+        // double parabola_integral = integrate(parabola, 1.0, 3.0, 1000);
+        // cout << "Интеграл parabola(x) от 1 до 3 (численный): " << parabola_integral << endl;
+        // cout << "Интеграл parabola(x) от 1 до 3 (теоретический): " << "2.(6)" << endl;
+
+        // double exp_integral = integrate(exp, 0.0, 1.0, 1000);
+        // cout << "Интеграл exp(x) от 0 до 1 (численный): " << exp_integral << endl;
+        // cout << "Интеграл exp(x) от 0 до 1 (теоретический): " << exp(1.0) - exp(0.0) << endl;
+
+        // double sin_integral = integrate(sin, 0.0, M_PI, 1000);
+        // cout << "Интеграл sin(x) от 0 до pi (численный): " << sin_integral << endl;
+        // cout << "Интеграл sin(x) от 0 до pi (теоретический): " << 2.0 << endl;
+    }
+
 
     /**
      * Задание 3. Структуры С.
@@ -224,6 +353,25 @@ int main()
      * ожидает число, а пользователь ввел случайно букву.
      */
 
+    {
+        // Book global_book;
+        // static Book static_book;
+
+        // {
+        //     Book local_book;
+        //     printf("Размер localBook: %zu\n", sizeof(local_book));
+        // }
+        // printf("Размер globalBook: %zu\n", sizeof(global_book));
+        // printf("Размер staticBook: %zu\n", sizeof(static_book));
+
+        // Book* dynamic_book = new Book;
+        // printf("Размер dynamicBook: %zu\n", sizeof(*dynamic_book));
+
+        // if(input_book(*dynamic_book)) print_book(*dynamic_book);
+
+        // delete dynamic_book;
+    }
+
     /**
      * Задание 3.2. Матричные операции.
      */
@@ -285,6 +433,35 @@ int main()
      * Фибоначчи: 1 и 0. Выполняйте эту формулу итеративно и выведите первые 40
      * чисел Фибоначчи.
      */
+
+    {
+        // int transform_matrix[2][2] = {{1,1},{1,0}};
+
+        // Matrix fib_matrix;
+        // m_zero(&fib_matrix, 2, 2);
+        // for (int i = 0; i < 2; ++i) {
+        //     for (int j = 0; j < 2; j++) m_set(&fib_matrix, i, j, transform_matrix[i][j]);
+        // }
+
+        // Matrix fib_vector;
+        // m_zero(&fib_vector, 2, 1);
+        // m_set(&fib_vector, 0, 0, 1);
+        // m_set(&fib_vector, 1, 0, 0);
+
+        // Matrix fib_result;
+
+        // for (int i = 0; i < 40; ++i) {
+        //     m_mult(&fib_matrix, &fib_vector, &fib_result);
+        //     cout << m_get(&fib_result, 0, 0) << " ";
+
+        //     m_copy(&fib_result, &fib_vector);
+        // }
+        // cout << endl;
+
+        // m_free(&fib_matrix);
+        // m_free(&fib_vector);
+        // m_free(&fib_result);
+    }
 
     return 0;
 }

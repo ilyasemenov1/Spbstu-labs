@@ -649,12 +649,10 @@ int main()
         const int SPACE = 32;
         const int LINE_WIDTH = 40;
 
-        char* text = readLine(); 
+        const char* text = readLine(); 
         int size = strlen(text);
 
         int* spaces = new int[size];
-        int countSpaces = 0;
-        int iSpases = 0;
 
         char** worlds = { new char*[size]{} };
         for (int i = 0; i < size; ++i) {
@@ -662,23 +660,23 @@ int main()
         }
 
         int l = 0;
-        int wSize = 0;
-        int wCounter = 0;
+        int w_size = 0;
+        int w_counter = 0;
         for (int r = 0; r < size; ++r) {
             if (text[r] != SPACE) {
-                wSize++;
-                worlds[wCounter][wSize - 1] = text[r];
+                w_size++;
+                worlds[w_counter][w_size - 1] = text[r];
             } else {
                 while (l != r) {
-                    if (text[l] == SPACE) ++spaces[wCounter];
+                    if (text[l] == SPACE) ++spaces[w_counter];
                     l++;
                 }
-                wCounter++;
-                wSize = 0;
+                w_counter++;
+                w_size = 0;
             }
         }
         
-        spaces[wCounter] = 1;
+        spaces[w_counter] = 1;
         int numLines = size;
 
         char** lines = { new char*[numLines]{} };
@@ -686,34 +684,34 @@ int main()
             lines[i] = new char[LINE_WIDTH]{};
         }
 
-        int currentLineLengh = 0;
+        int current_line_lengh = 0;
         int line = 0;
 
-        for (int i = 0; i < wCounter + 1; ++i) {
-            int worldSize = strlen(worlds[i]);
-            int spacesCount  = spaces[i];
+        for (int i = 0; i < w_counter + 1; ++i) {
+            int world_size = strlen(worlds[i]);
+            int spaces_count  = spaces[i];
 
-            if (spacesCount) {
-                lines[line][currentLineLengh] = ' ';
-                currentLineLengh++;
+            if (spaces_count) {
+                lines[line][current_line_lengh] = ' ';
+                current_line_lengh++;
             }
 
-            if (worldSize + currentLineLengh > LINE_WIDTH && worldSize <= LINE_WIDTH) {
+            if (world_size + current_line_lengh > LINE_WIDTH && world_size <= LINE_WIDTH) {
                 line++;
-                currentLineLengh = 0;
+                current_line_lengh = 0;
             }
 
-            int k = 0;
-            for (int j = 0; j < worldSize; ++j) {
-                if (currentLineLengh + k == LINE_WIDTH) {
+            int n = 0;
+            for (int j = 0; j < world_size; ++j) {
+                if (current_line_lengh + n == LINE_WIDTH) {
                     line++;
-                    currentLineLengh = 0;
-                    k = 0;
+                    current_line_lengh = 0;
+                    n = 0;
                 }  
-                lines[line][currentLineLengh + k] = worlds[i][j];
-                ++k;
+                lines[line][current_line_lengh + n] = worlds[i][j];
+                ++n;
             }
-            currentLineLengh += k;
+            current_line_lengh += n;
         }
 
         for (int i = 0; i < size; ++i) {
