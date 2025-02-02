@@ -9,5 +9,5 @@ struct Book {
     char category[MAX_STR_LEN];
 };
 
-bool input_book(Book&);
-void print_book(const Book&);
+bool input_book(Book*);
+void print_book(const Book*);

@@ -73,7 +73,6 @@ double div(double x, double y) {
 }
 
 void print_max(int* arr, int size) {
-    if (arr == nullptr || size <= 0) return;
     int max = arr[0];
     for (int i = 1; i < size; ++i) {
         if (arr[i] > max) {
@@ -84,7 +83,6 @@ void print_max(int* arr, int size) {
 }
 
 void print_min(int* arr, int size) {
-    if (arr == nullptr || size <= 0) return;
     int min = arr[0];
     for (int i = 1; i < size; ++i) {
         if (arr[i] < min) {
@@ -95,7 +93,6 @@ void print_min(int* arr, int size) {
 }
 
 void sort_asc(int* arr, int size) {
-    if (arr == nullptr || size <= 0) return;
     for (int i = 0; i < size - 1; ++i) {
         for (int j = 0; j < size - i - 1; ++j) {
             if (arr[j] > arr[j + 1]) {
@@ -111,7 +108,6 @@ void sort_asc(int* arr, int size) {
 }
 
 void sort_desc(int* arr, int size) {
-    if (arr == nullptr || size <= 0) return;
     for (int i = 0; i < size - 1; ++i) {
         for (int j = 0; j < size - i - 1; ++j) {
             if (arr[j] < arr[j + 1]) {
@@ -126,17 +122,15 @@ void sort_desc(int* arr, int size) {
     cout << endl;
 }
 double integrate(double (*f)(double), double a, double b, int n) {
-    if (n <= 0) return 0;
-
-    double h = (b - a) / n;
+    double width = (b - a) / n;
     double integral = 0;
 
     for (int i = 0; i < n; ++i) {
-        integral += f(a + i * h) * h;
+        integral += f(a + i * width) * width;
     }
 
     return integral;
 }
 
 double linear(double x) { return 2 * x + 3; }
-double parabola(double x) { return x * x - 4 * x + 5; }
+double parabola(double x) { return 2 * x * x - 10 * x + 5; }

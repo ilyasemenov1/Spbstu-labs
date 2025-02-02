@@ -1,7 +1,5 @@
 
-#include <cstddef>
 #include <iostream>
-#include <cctype>
 #include <cstring>
 #include "alg.h"
 

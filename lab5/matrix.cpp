@@ -4,8 +4,6 @@
 using namespace std;
 
 void m_zero(Matrix* A, int m, int n) {
-    if (A == nullptr) return;
-
     A->rows = m;
     A->cols = n;
     A->data = new double[m * n]{};
@@ -30,8 +28,8 @@ void m_copy(const Matrix* src, Matrix* dst) {
     memcpy(dst->data, src->data, src->rows * src->cols * sizeof(double));
 }
 
-int m_width(const Matrix* A) { return (A != nullptr) ? A->cols : 0; }
-int m_height(const Matrix* A) { return (A != nullptr) ? A->rows : 0; }
+int m_width(const Matrix* A) { return A->cols; }
+int m_height(const Matrix* A) { return A->rows; }
 
 double m_get(const Matrix* A, int i, int j) {
     if (i < 0 || i >= A->rows || j < 0 || j >= A->cols) return 0;
@@ -39,7 +37,7 @@ double m_get(const Matrix* A, int i, int j) {
 }
 
 void m_set(Matrix* A, int i, int j, double value) {
-     if (i < 0 || i >= A->rows || j < 0 || j >= A->cols) return;
+    if (i < 0 || i >= A->rows || j < 0 || j >= A->cols) return;
     A->data[i * A->cols + j] = value;
 }
 
